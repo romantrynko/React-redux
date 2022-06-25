@@ -1,25 +1,19 @@
-.user-card {
-  border-top: 1px solid gray;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 20px 40px;
+.may-user-card {
+  max-width: 300px;
+  margin: 10px 20px;
+  padding: 10px;
 
-  &-content {
-    display: flex;
-    justify-content: space-between;
+  &-avatar {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto;
   }
 
-  &-social-media {
-    &-wrapper {
-      display: flex;
-      justify-content: space-between;
-    }
+  .card-text {
+    font-size: 14px;
+  }
 
-    &-icon {
-      width: 25px;
-      height: 25px;
-      margin: 0 10px;
-    }
+  .card-title {
+    font-size: 16px;
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './UserInfo.scss';
 
 export const UserInfo = ({ user }) => {
-  if (!user) return;
+  if (!user) return null;
 
   const { firstName, lastName, avatar } = user;
 
