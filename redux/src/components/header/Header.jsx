@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Logo from '../../assets/react.png';
-import { links } from '../../constants';
+import { links, user } from '../../constants';
+import { UserInfo } from '../user-info/UserInfo';
 
 import './Header.scss';
 
@@ -21,6 +22,8 @@ export function Header(props) {
           );
         })}
       </div>
+
+      <UserInfo user={user} />
     </header>
   );
 }
