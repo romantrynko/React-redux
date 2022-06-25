@@ -1,16 +1,17 @@
 import React from 'react';
 import './PostCard.scss';
 import avatar from '../../assets/react.png';
+import Comments from '../comments/Comments';
 
 export const PostCard = (props) => {
-  let randomNum = Math.random();
+  let randomNum = Math.random() * 1000;
   const {
     post: { title, body },
-    hasImage
+    hasImage,
+    author,
+    comments
   } = props;
-  // const { hasImage } = props;
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
-
   return (
     <div className="my-post-card card">
       {hasImage ? (
@@ -23,10 +24,16 @@ export const PostCard = (props) => {
         </div>
       )}
 
-      <div class="card-body">
-        <h4 class="card-title title">{title}</h4>
-        <div class="card-text body">{body}</div>
+      <div className="card-body">
+        <h4 className="card-title title">{title}</h4>
+        <div className="card-text body">{body}</div>
       </div>
+
+      <div>
+        <Comments comments={comments} />
+      </div>
+
+      <blockquote className="blockquote-footer">{author}</blockquote>
     </div>
   );
 };
