@@ -6,6 +6,7 @@ import { usersList, postsList, allComments } from '../../constants';
 import { PostCard } from '../post-card/PostCard';
 import { Dropdown } from '../dropdown/Dropdown';
 import Panel from '../panel/Panel';
+import PostPreview from '../post-preview/PostPreview';
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -121,6 +122,10 @@ export default class App extends Component {
                 return <UserCard user={user} key={key} />;
               })}
           </div>
+        </Panel>
+
+        <Panel label={'Post Preview'}>
+          <PostPreview posts={posts} />
         </Panel>
       </div>
     );

@@ -3,15 +3,20 @@ import './PostCard.scss';
 import avatar from '../../assets/react.png';
 import Comments from '../comments/Comments';
 
-export const PostCard = (props) => {
+export const PostCard = ({
+  post: { title, body },
+  hasImage,
+  author = '',
+  comments = []
+}) => {
   let randomNum = Math.random() * 1000;
 
-  const {
-    post: { title, body },
-    hasImage,
-    author,
-    comments = []
-  } = props;
+  // const {
+  //   post: { title, body },
+  //   hasImage,
+  //   author='',
+  //   comments = []
+  // } = props;
 
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
 

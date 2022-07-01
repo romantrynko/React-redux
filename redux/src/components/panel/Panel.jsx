@@ -25,7 +25,7 @@ export default class Panel extends Component {
 
     return (
       <div className="my-panel card">
-        <input type="text" value={this.state.value} onChange={this.onChange} />
+        {/* <input type="text" value={this.state.value} onChange={this.onChange} /> */}
         <div className="my-panel-header card-header">
           <div>{label}</div>
           <div
