@@ -1,10 +1,11 @@
 import React from 'react';
-import './Comments.scss'
+import './Comments.scss';
 
 export default function Comments({ comments }) {
   return (
-    <div className='my-comment'>
+    <div className="my-comment">
       {!!comments.length && <h5>Comments:</h5>}
+
       <ul>
         {comments.map((com, index) => {
           return (
@@ -13,7 +14,7 @@ export default function Comments({ comments }) {
               <br />
               <i>{com.email}</i>
               <hr />
-              <p>{com.body}</p>
+              <i>{com.body}</i>
             </li>
           );
         })}
