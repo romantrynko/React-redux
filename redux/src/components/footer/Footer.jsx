@@ -10,11 +10,12 @@ export const Footer = () => {
         <div>Some text about authors</div>
 
         <div className="my-footer-social-media-wrapper">
-          {socialMediaIcons.map((icon) => (
+          {socialMediaIcons.map((icon, index) => (
             <img
               className="my-footer-social-media-icon"
               src={icon.src}
               alt={icon.alt}
+              key={index}
             />
           ))}
         </div>

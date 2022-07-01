@@ -4,14 +4,36 @@ import { Footer } from '../footer/Footer';
 import { UserCard } from '../user-card/UserCard';
 import { usersList, postsList, allComments } from '../../constants';
 import { PostCard } from '../post-card/PostCard';
+import { Dropdown } from '../dropdown/Dropdown';
+import Panel from '../panel/Panel';
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
-import Panel from '../panel/Panel';
 
+const sortingOptions = ['Sort By Default', 'Sort By Author'];
 export default class App extends Component {
   state = {
-    posts: [...postsList]
+    posts: [...postsList],
+    selectedOption: sortingOptions[0]
+  };
+
+  onSort = (selectedOption) => {
+    const [option1, option2] = sortingOptions;
+
+    switch (selectedOption) {
+      case option1:
+        this.onSortByDefaultClick();
+        this.setState({ selectedOption: option1 });
+        break;
+
+      case option2:
+        this.onSortByAuthorClick();
+        this.setState({ selectedOption: option2 });
+        break;
+
+      default:
+        break;
+    }
   };
 
   onSortByDefaultClick = () => {
@@ -34,7 +56,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { posts } = this.state;
+    const { posts, selectedOption } = this.state;
 
     return (
       <div className="App">
@@ -43,9 +65,7 @@ export default class App extends Component {
 
         <Panel label={'Posts'}>
           <div className="d-flex justify-content-center">
-            <p>
-            Sorting:
-            </p>
+            <p>Sorting:</p>
             <button
               className="btn btn-primary m-1"
               onClick={this.onSortByAuthorClick}
@@ -59,6 +79,11 @@ export default class App extends Component {
               By default
             </button>
           </div>
+          <Dropdown
+            onSelect={this.onSort}
+            selectedOption={selectedOption}
+            options={sortingOptions}
+          />
           {
             <div className="posts-container d-flex">
               {posts &&

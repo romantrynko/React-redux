@@ -12,9 +12,9 @@ export function Header(props) {
       <img className="my-header-logo" src={Logo} alt="Logo" />
 
       <div className="my-header-links-wrapper">
-        {links.map((link, key) => {
+        {links.map((link, index) => {
           return (
-            <div className="nav-item" key={key}>
+            <div className="nav-item" key={index}>
               <a className="my-header-links-wrapper-link" href={link.url}>
                 {link.name}
               </a>
