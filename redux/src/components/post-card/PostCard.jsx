@@ -7,7 +7,8 @@ export const PostCard = ({
   post: { title, body },
   hasImage,
   author = '',
-  comments = []
+  comments = [],
+  className = ''
 }) => {
   let randomNum = Math.random() * 1000;
 
@@ -21,7 +22,7 @@ export const PostCard = ({
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
 
   return (
-    <div className="my-post-card card">
+    <div className={`my-post-card card ${className}`}>
       {hasImage ? (
         <div className="my-post-card-img">
           <img src={_kittyURL} alt="cat" />

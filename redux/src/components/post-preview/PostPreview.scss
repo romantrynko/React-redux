@@ -1,4 +1,40 @@
 .my-post-preview {
-    display: flex;
-    
+  display: flex;
+
+  &-content {
+    width: 50%;
+  }
+
+  &-card {
+    max-width: unset;
+    width: 100%;
+    flex: 1;
+  }
+
+  &-list {
+    width: 50%;
+    flex: 1
+  }
+}
+
+.my-posts-menu {
+  max-width: 60%;
+
+  &-option {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  &-option:hover {
+    background: rgb(225, 225, 225);
+    transform: scale(1.05);
+    transition-duration: 300ms;
+  }
+
+  &-option:not(:hover) {
+    transition-duration: 200ms;
+  }
 }

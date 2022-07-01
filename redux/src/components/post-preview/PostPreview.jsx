@@ -31,7 +31,7 @@ export default class PostPreview extends Component {
             <PostsMenuList posts={posts} />
           </div>
           <div className={`${CN}-content`}>
-            <PostCard post={selectedPost} />
+            <PostCard post={selectedPost} className={`${CN}-card`} />
           </div>
         </div>
       </div>
