@@ -25,6 +25,7 @@ export default class PostsMenuList extends Component {
               {post.title}
             </li>
           ))}
+        <div style={{height: '70px'}}></div>
       </ul>
     );
   }
