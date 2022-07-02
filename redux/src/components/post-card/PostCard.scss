@@ -20,4 +20,8 @@
     display: block;
     overflow-wrap: break-word;
   }
+
+  .blockquote-footer::before {
+    content: '— Author: ';
+  }
 }

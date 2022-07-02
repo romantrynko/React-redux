@@ -15,7 +15,7 @@ export function Header(props) {
         {links.map((link, index) => {
           return (
             <div className="nav-item" key={index}>
-              <a className="my-header-links-wrapper-link" href={link.url}>
+              <a className="my-header-links-wrapper-link btn btn-light" href={link.url}>
                 {link.name}
               </a>
             </div>
