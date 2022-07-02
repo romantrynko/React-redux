@@ -7,30 +7,30 @@
 
   &-card {
     max-width: unset;
-    width: 100%;
+    width:100%;
     flex: 1;
   }
 
   &-list {
-    width: 50%;
+    width: 33.3%;
     flex: 1
   }
 }
 
 .my-posts-menu {
-  max-width: 60%;
+  max-width: 100%;
 
   &-option {
     border: 1px solid rgb(202, 202, 202);
     border-radius: 10px;
     padding: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     cursor: pointer;
   }
 
   &-option:hover {
     background: rgb(225, 225, 225);
-    transform: scale(1.05);
+    transform: scale(1.01);
     transition-duration: 300ms;
   }
 
