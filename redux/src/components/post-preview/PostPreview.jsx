@@ -28,7 +28,11 @@ export default class PostPreview extends Component {
             <PostsMenuList posts={posts} onPostClick={this.onPostSelect} />
           </div>
           <div className={`${CN}-content`}>
-            <PostCard post={post} className={`${CN}-card`} />
+            <PostCard
+              post={post}
+              className={`${CN}-card`}
+              withCommentsLoading
+            />
           </div>
         </div>
       </div>

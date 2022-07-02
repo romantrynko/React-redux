@@ -1,24 +1,20 @@
 import React from 'react';
 import './Comments.scss';
 
-export default function Comments({ comments }) {
+export default function Comments(props) {
+  const { comment } = props;
+
+  if (!comment) return null;
+
+  const { name, email, body } = comment;
+
   return (
     <div className="my-comment">
-      {!!comments.length && <h5>Comments:</h5>}
-
-      <ul>
-        {comments.map((com, index) => {
-          return (
-            <li key={index}>
-              <b>{com.name}</b>
-              <br />
-              <i>{com.email}</i>
-              <hr />
-              <i>{com.body}</i>
-            </li>
-          );
-        })}
-      </ul>
+      <b>{name}</b>
+      <br />
+      <i>{email}</i>
+      <hr />
+      <i>{body}</i>
     </div>
   );
 }

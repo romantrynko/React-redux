@@ -5,42 +5,65 @@ import Comments from '../comments/Comments';
 import { PureComponent } from 'react';
 
 export class PostCard extends PureComponent {
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   const { post: currentPost } = this.props;
-  //   const { post: nextPost } = nextProps;
-
-  //   return currentPost !== nextPost;
-  // }
   state = {
-    comments: []
+    comments: [],
+    isCommentsLoading: false,
+    commentsLoaded: false,
+    showComments: false,
+    error: ''
   };
 
   componentDidMount() {
-    const { post } = this.props;
+    const { post, withCommentsLoading } = this.props;
 
-    if (post) {
+    if (post && withCommentsLoading) {
       const { id } = post;
 
-      this.getComments(id);
+      id && this.getComments(id);
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.post.id !== this.props.post.id) {
+    if (
+      prevProps.post.id !== this.props.post.id &&
+      this.props.withCommentsLoading
+    ) {
       this.getComments(this.props.post.id);
     }
   }
 
   getComments = async (id) => {
+    this.setState({
+      isCommentsLoading: true,
+      showComments: true
+    });
+
     let response = await fetch(
       `https://gorest.co.in/public/v2/posts/${id}/comments`
     );
     if (response.ok) {
       let result = await response.json();
-      this.setState({ comments: result });
+
+      if (Array.isArray(result)) {
+        this.setState({
+          isCommentsLoading: false,
+          commentsLoaded: true,
+          error: '',
+          comments: result
+        });
+      }
     } else {
-      console.log(response.status);
+      this.setState({
+        isCommentsLoading: false,
+        commentsLoaded: false,
+        error: response.status,
+        commentsSectionExpanded: false
+      });
     }
+  };
+
+  onToggleComments = () => {
+    this.setState({ showComments: !this.state.showComments });
   };
 
   render() {
@@ -51,9 +74,8 @@ export class PostCard extends PureComponent {
       className = ''
     } = this.props;
 
-    const { comments } = this.state;
-
-    console.log('render');
+    const { comments, showComments, error, isCommentsLoading, commentsLoaded } =
+      this.state;
 
     let randomNum = Math.random() * 1000;
     const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
@@ -76,9 +98,33 @@ export class PostCard extends PureComponent {
         </div>
         <blockquote className="blockquote-footer">{author}</blockquote>
 
-        <div>
+        {/* <div>
           <Comments comments={comments} />
-        </div>
+        </div> */}
+
+        <label className="btn btn-link" onClick={this.onToggleComments}>
+          {showComments ? 'Hide comments' : 'Show comments'}
+
+          {!!error && <div>{error}</div>}
+          <br />
+
+          {showComments && <label>Comments:</label>}
+
+          {showComments && isCommentsLoading && <div>Loading comments...</div>}
+
+          {showComments &&
+            !isCommentsLoading &&
+            commentsLoaded &&
+            !comments.length && <div>No comments for this post yet</div>}
+
+          {showComments &&
+            !isCommentsLoading &&
+            commentsLoaded &&
+            !!comments.length &&
+            comments.map((comment) => (
+              <Comments comment={comment} key={comment.id} />
+            ))}
+        </label>
       </div>
     );
   }
