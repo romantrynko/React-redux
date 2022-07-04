@@ -27,7 +27,7 @@ export class Dropdown extends Component {
     const { isOpen } = this.state;
 
     return (
-      <div className="my-drop-down dropdown">
+      <div className="btn btn-outline-secondary">
         <div onClick={this.toggle} className="dropdown-toggle">
           {selectedOption}
         </div>

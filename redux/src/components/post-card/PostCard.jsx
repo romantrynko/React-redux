@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './PostCard.scss';
 import avatar from '../../assets/react.png';
 import Comments from '../comments/Comments';
-import { PureComponent } from 'react';
 
 export class PostCard extends PureComponent {
   state = {
@@ -102,29 +101,32 @@ export class PostCard extends PureComponent {
           <Comments comments={comments} />
         </div> */}
 
-        <label className="btn btn-link" onClick={this.onToggleComments}>
+        <label
+          className="btn btn-outline-secondary m-2"
+          onClick={this.onToggleComments}
+        >
           {showComments ? 'Hide comments' : 'Show comments'}
-
-          {!!error && <div>{error}</div>}
-          <br />
-
-          {showComments && <label>Comments:</label>}
-
-          {showComments && isCommentsLoading && <div>Loading comments...</div>}
-
-          {showComments &&
-            !isCommentsLoading &&
-            commentsLoaded &&
-            !comments.length && <div>No comments for this post yet</div>}
-
-          {showComments &&
-            !isCommentsLoading &&
-            commentsLoaded &&
-            !!comments.length &&
-            comments.map((comment) => (
-              <Comments comment={comment} key={comment.id} />
-            ))}
         </label>
+
+        {!!error && <div>{error}</div>}
+        <br />
+
+        {showComments && <label>Comments:</label>}
+
+        {showComments && isCommentsLoading && <div>Loading comments...</div>}
+
+        {showComments &&
+          !isCommentsLoading &&
+          commentsLoaded &&
+          !comments.length && <div className='m-2'>No comments for this post yet</div>}
+
+        {showComments &&
+          !isCommentsLoading &&
+          commentsLoaded &&
+          !!comments.length &&
+          comments.map((comment) => (
+            <Comments comment={comment} key={comment.id} />
+          ))}
       </div>
     );
   }

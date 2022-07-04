@@ -10,6 +10,7 @@ import PostPreview from '../post-preview/PostPreview';
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
+import PostForm from '../post-form/PostForm';
 
 const sortingOptions = ['Sort By Default', 'Sort By Author'];
 export default class App extends Component {
@@ -56,6 +57,14 @@ export default class App extends Component {
     this.setState({ posts: sorted });
   };
 
+  addPost = (newPost) => {
+    this.setState((prevState, props) => {
+      return {
+        posts: [{ ...newPost, id: Math.random() * 1000 }, ...prevState.posts]
+      };
+    });
+  };
+
   render() {
     const { posts, selectedOption } = this.state;
 
@@ -65,28 +74,37 @@ export default class App extends Component {
         <Footer />
 
         <Panel label={'Posts'}>
-          <div className="d-flex justify-content-center">
-            <p>Sorting:</p>
+          <div className="d-flex justify-content-center m-2">
+            <div className="d-flex align-items-center m-2">
+              <span className>Sorting:</span>
+            </div>
             <button
-              className="btn btn-primary m-1"
+              className="btn btn-outline-secondary m-1"
               onClick={this.onSortByAuthorClick}
             >
               By author
             </button>
             <button
-              className="btn btn-primary m-1"
+              className="btn btn-outline-secondary m-1"
               onClick={this.onSortByDefaultClick}
             >
               By default
             </button>
           </div>
+          <hr />
           <Dropdown
             onSelect={this.onSort}
             selectedOption={selectedOption}
             options={sortingOptions}
           />
+          <hr />
+
           {
             <div className="posts-container d-flex">
+              <div className="w-100">
+                <PostForm users={usersList} addPost={this.addPost} />
+              </div>
+
               {posts &&
                 posts.map((post, key) => {
                   const odd = key % 2 !== 0;
