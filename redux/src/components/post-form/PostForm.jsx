@@ -32,6 +32,16 @@ export default class PostForm extends Component {
     this.setState({ user_id: users[selectedIndex].id });
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { onAddPost } = this.props;
+    const { title, body, user_id } = this.state;
+
+    const newPost = { title, body, user_id };
+
+    onAddPost && onAddPost(newPost);
+  };
+
   renderUsersSelect = () => {
     const { users } = this.props;
     const { user_id } = this.state;
@@ -61,14 +71,14 @@ export default class PostForm extends Component {
     const { title, body, user_id } = this.state;
 
     return (
-      <form className="my-add-post-form">
+      <form className="my-add-post-form" onSubmit={this.onSubmit}>
         <div className="form-group">
           <label htmlFor="formGroupExampleInput"></label>
           <input
             type="text"
             className="form-control"
             id="formGroupExampleInput"
-            placeholder="Enter your name"
+            placeholder="Enter post name"
             value={title}
             onChange={this.onTitleChange}
           />
@@ -82,9 +92,12 @@ export default class PostForm extends Component {
             value={body}
             onChange={this.onBodyChange}
           />
-            </div>
-            <hr/>
+        </div>
+        <hr />
         {this.renderUsersSelect()}
+        <button className="btn btn-outline-dark d-block m-auto" type="submit">
+          Create post
+        </button>
       </form>
     );
   }

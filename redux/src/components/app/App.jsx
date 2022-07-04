@@ -102,7 +102,7 @@ export default class App extends Component {
           {
             <div className="posts-container d-flex">
               <div className="w-100">
-                <PostForm users={usersList} addPost={this.addPost} />
+                <PostForm users={usersList} onAddPost={this.addPost} />
               </div>
 
               {posts &&
