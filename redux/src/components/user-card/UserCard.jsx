@@ -8,11 +8,11 @@ export const UserCard = ({ user }) => {
 
   return (
     <div className="my-user-card card m-2 p-2">
-      <img
+      {/* <img
         className="my-user-card-avatar rounded-circle"
         src={_links.avatar.href}
         alt="avatar"
-      />
+      /> */}
       <div className="card-body">
         <h5 className="card-title">
           {first_name} {last_name}

@@ -11,7 +11,7 @@ import uniqid from 'uniqid';
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
-import PostForm from '../post-form/PostForm';
+import AddPostForm from '../post-form/AddPostForm';
 import UsersList from '../users-list/UsersList';
 import AddUserForm from '../user-form/AddUserForm';
 
@@ -119,7 +119,7 @@ export default class App extends Component {
           {
             <div className="posts-container d-flex">
               <div className="w-100">
-                <PostForm users={users} onAddPost={this.onAddPost} />
+                <AddPostForm users={users} onAddPost={this.onAddPost} />
               </div>
 
               {posts &&

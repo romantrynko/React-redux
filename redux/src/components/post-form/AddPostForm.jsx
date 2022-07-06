@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './AddPostForm.scss';
 
-export default class PostForm extends Component {
+export default class AddPostForm extends Component {
   state = {
     title: '',
     body: '',
@@ -48,7 +48,13 @@ export default class PostForm extends Component {
     const newPost = { title, body, user_id };
 
     onAddPost && onAddPost(newPost);
+
+    this.onReset();
   };
+
+  onReset() {
+    this.setState({ title: '', body: '' });
+  }
 
   renderUsersSelect = () => {
     const { users } = this.props;
@@ -104,8 +110,18 @@ export default class PostForm extends Component {
         </div>
         <hr />
         {this.renderUsersSelect()}
-        <button className="btn btn-outline-dark d-block m-auto" type="submit">
+        <button
+          className="btn btn-outline-dark d-block m-auto mb-2"
+          type="submit"
+        >
           Create post
+        </button>
+        <button
+          onClick={this.onReset}
+          className="btn btn-outline-danger d-block m-auto"
+          type="submit"
+        >
+          Reset
         </button>
       </form>
     );
