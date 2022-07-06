@@ -10,7 +10,15 @@ export default class PostForm extends Component {
   };
 
   onTitleChange = (event) => {
-    this.setState({ title: event.target.value });
+    const regex = /\d+/;
+    const body = event.target.value;
+
+    if (regex.test(body)) {
+      alert('No numbers allowed!');
+      this.setState({ warning: 'No numbers allowed!' });
+      return;
+    }
+    this.setState({ title: body });
   };
 
   onBodyChange = (event) => {
@@ -68,10 +76,11 @@ export default class PostForm extends Component {
   };
 
   render() {
-    const { title, body, user_id } = this.state;
+    const { title, body, user_id, warning } = this.state;
 
     return (
       <form className="my-add-post-form" onSubmit={this.onSubmit}>
+        {!!warning && <div>{warning} </div>}
         <div className="form-group">
           <label htmlFor="formGroupExampleInput"></label>
           <input

@@ -1,17 +1,33 @@
-import React, { Component } from 'react';
-import { useRef } from 'react';
+import React, { Component, createRef } from 'react';
 
 export default class AddUserForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.firstNameRef = React.createRef();
-    this.secondNameRef = React.createRef();
-    this.emailRef = React.createRef();
-  }
+  firstNameRef = createRef();
+  lastNameRef = createRef();
+  emailRef = createRef();
 
   onSubmit = (e) => {
     e.preventDefault();
+    const { addUser } = this.props;
+
+    const first_name = this.firstNameRef.current.value;
+    const last_name = this.firstNameRef.current.value;
+    const email = this.emailRef.current.value;
+
+    const regex = /\d+/;
+
+    if (regex.test(first_name) || regex.test(last_name)) {
+      alert('No numbers allowed!');
+      //   this.setState({ warning: 'No numbers in name!' });
+      return;
+    }
+
+    const newUser = {
+      first_name,
+      last_name,
+      email
+    };
+
+    addUser(newUser);
   };
 
   render() {
@@ -25,6 +41,7 @@ export default class AddUserForm extends Component {
             className="form-control"
             id="formGroupExampleInput"
             placeholder="Enter your first name"
+            required
           />
         </div>
         <div className="form-group">
@@ -35,6 +52,7 @@ export default class AddUserForm extends Component {
             className="form-control"
             id="formGroupExampleInput2"
             placeholder="Enter your second name"
+            required
           />
         </div>
         <div className="form-group">
@@ -45,6 +63,7 @@ export default class AddUserForm extends Component {
             className="form-control"
             id="formGroupExampleInput2"
             placeholder="Enter your e-mail"
+            required
           />
         </div>
         <button type="submit" className="btn btn-outline-primary w-50 m-3">

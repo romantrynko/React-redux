@@ -61,10 +61,18 @@ export default class App extends Component {
     this.setState({ posts: sorted });
   };
 
-  addPost = (newPost) => {
+  onAddPost = (newPost) => {
     this.setState((prevState, props) => {
       return {
         posts: [{ ...newPost, id: uniqid() }, ...prevState.posts]
+      };
+    });
+  };
+
+  onAddUser = (newUser) => {
+    this.setState((prevState, props) => {
+      return {
+        users: [{ id: uniqid(), ...newUser }, ...prevState.users]
       };
     });
   };
@@ -78,7 +86,7 @@ export default class App extends Component {
         <Footer />
 
         <Panel label={'Users-list'} isOpenByDefault>
-          <AddUserForm />
+          <AddUserForm addUser={this.onAddUser} />
           <UsersList users={users} />
         </Panel>
 
@@ -111,7 +119,7 @@ export default class App extends Component {
           {
             <div className="posts-container d-flex">
               <div className="w-100">
-                <PostForm users={users} onAddPost={this.addPost} />
+                <PostForm users={users} onAddPost={this.onAddPost} />
               </div>
 
               {posts &&

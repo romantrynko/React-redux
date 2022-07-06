@@ -4,7 +4,7 @@ import './UserCard.scss';
 export const UserCard = ({ user }) => {
   if (!user) return null;
 
-  const { first_name, last_name, email, address, _links } = user;
+  const { first_name, last_name, email, address = '', _links = '' } = user;
 
   return (
     <div className="my-user-card card m-2 p-2">
