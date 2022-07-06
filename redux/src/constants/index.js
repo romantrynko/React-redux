@@ -62,14 +62,14 @@ export const usersList = [
         href: 'https://gorest.co.in/public-api/users/1341'
       },
       avatar: {
-        href: 'https://lorempixel.com/250/250/people/?87340'
+        href: 'https://xsgames.co/randomusers/avatar.php?g=male'
       }
     }
   },
   {
     id: '1342',
-    first_name: 'mo',
-    last_name: 'fay',
+    first_name: 'Mo',
+    last_name: 'Fay',
     gender: 'female',
     dob: '1966-02-05',
     email: 'mofay@gmail.com',
@@ -86,13 +86,13 @@ export const usersList = [
         href: 'https://gorest.co.in/public-api/users/1342'
       },
       avatar: {
-        href: 'https://lorempixel.com/250/250/people/?55275'
+        href: 'https://xsgames.co/randomusers/avatar.php?g=female'
       }
     }
   },
   {
     id: '1343',
-    first_name: 'Caitlyn',
+    first_name: 'Catleyn',
     last_name: 'Dooley',
     gender: 'female',
     dob: '1999-06-08',
@@ -109,7 +109,7 @@ export const usersList = [
         href: 'https://gorest.co.in/public-api/users/1343'
       },
       avatar: {
-        href: 'https://lorempixel.com/250/250/people/?62267'
+        href: 'https://xsgames.co/randomusers/avatar.php?g=female'
       }
     }
   },
@@ -133,7 +133,7 @@ export const usersList = [
         href: 'https://gorest.co.in/public-api/users/1344'
       },
       avatar: {
-        href: 'https://lorempixel.com/250/250/people/?71754'
+        href: 'https://xsgames.co/randomusers/avatar.php?g=female'
       }
     }
   }

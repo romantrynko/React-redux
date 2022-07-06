@@ -4,10 +4,16 @@ import Chevron from '../../assets/chevron-bottom.png';
 import './Panel.scss';
 
 export default class Panel extends Component {
-  state = {
-    isOpen: false,
-    value: 'Enter something here'
-  };
+  constructor(props) {
+    super(props);
+
+    const { isOpenByDefault } = this.props;
+
+    this.state = {
+      isOpen: isOpenByDefault,
+      value: 'Enter something here'
+    };
+  }
 
   onClick = (e) => {
     e.preventDefault();
@@ -28,11 +34,7 @@ export default class Panel extends Component {
         {/* <input type="text" value={this.state.value} onChange={this.onChange} /> */}
         <div className="my-panel-header card-header">
           <div>{label}</div>
-          <div
-            className={`my-panel-header-chevron ${
-              isOpen ? 'up' : ''
-            }`}
-          >
+          <div className={`my-panel-header-chevron ${isOpen ? 'up' : ''}`}>
             <img onClick={this.onClick} src={Chevron} alt="chevron" />
           </div>
         </div>

@@ -7,16 +7,20 @@ import { PostCard } from '../post-card/PostCard';
 import { Dropdown } from '../dropdown/Dropdown';
 import Panel from '../panel/Panel';
 import PostPreview from '../post-preview/PostPreview';
+import uniqid from 'uniqid';
 
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import PostForm from '../post-form/PostForm';
+import UsersList from '../users-list/UsersList';
+import AddUserForm from '../user-form/AddUserForm';
 
 const sortingOptions = ['Sort By Default', 'Sort By Author'];
 export default class App extends Component {
   state = {
     posts: [...postsList],
-    selectedOption: sortingOptions[0]
+    selectedOption: sortingOptions[0],
+    users: usersList
   };
 
   onSort = (selectedOption) => {
@@ -60,23 +64,28 @@ export default class App extends Component {
   addPost = (newPost) => {
     this.setState((prevState, props) => {
       return {
-        posts: [{ ...newPost, id: Math.random() * 1000 }, ...prevState.posts]
+        posts: [{ ...newPost, id: uniqid() }, ...prevState.posts]
       };
     });
   };
 
   render() {
-    const { posts, selectedOption } = this.state;
+    const { posts, selectedOption, users } = this.state;
 
     return (
       <div className="App">
         <Header />
         <Footer />
 
+        <Panel label={'Users-list'} isOpenByDefault>
+          <AddUserForm />
+          <UsersList users={users} />
+        </Panel>
+
         <Panel label={'Posts'}>
           <div className="d-flex justify-content-center m-2">
             <div className="d-flex align-items-center m-2">
-              <span className>Sorting:</span>
+              <span>Sorting:</span>
             </div>
             <button
               className="btn btn-outline-secondary m-1"
@@ -102,7 +111,7 @@ export default class App extends Component {
           {
             <div className="posts-container d-flex">
               <div className="w-100">
-                <PostForm users={usersList} onAddPost={this.addPost} />
+                <PostForm users={users} onAddPost={this.addPost} />
               </div>
 
               {posts &&
@@ -145,6 +154,8 @@ export default class App extends Component {
         <Panel label={'Post Preview'}>
           <PostPreview posts={posts} />
         </Panel>
+
+        <div style={{ height: '100px' }}></div>
       </div>
     );
   }
