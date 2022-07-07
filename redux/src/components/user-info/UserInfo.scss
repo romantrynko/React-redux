@@ -1,8 +1,7 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  align-self: center;
-  justify-content: center;
+  align-items: center;
 
   &-avatar {
     width: 50px;

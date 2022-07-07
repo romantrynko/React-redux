@@ -56,7 +56,7 @@ export default class AddUserForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit} className="w-50 m-auto mb-2">
-        <text className="font-weight-light">Add User Form</text>
+        <p className="font-weight-light">Add User Form</p>
         <hr />
         <div className="form-group m-1">
           <input

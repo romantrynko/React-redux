@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './UserCard.scss';
+import { Link } from 'react-router-dom';
+import withRouter, { useLocation, useNavigate } from 'react-router';
 
 export const UserCard = ({ user }) => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state === null || state === undefined) {
+      navigate('/users');
+      
+      console.log(state);
+      console.log(navigate);
+    }
+  }, []);
+
   if (!user) return null;
 
   const { first_name, last_name, email, address = '', _links = '' } = user;
@@ -24,6 +38,10 @@ export const UserCard = ({ user }) => {
         <hr />
         <div>{address}</div>
       </div>
+
+      <Link className="btn btn-outline-info m-3" to={`/${user.id}`}>
+        Show details
+      </Link>
     </div>
   );
 };

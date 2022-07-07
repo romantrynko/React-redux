@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Logo from '../../assets/react.png';
+import { Link, NavLink } from 'react-router-dom';
 import { links, user } from '../../constants';
 import { UserInfo } from '../user-info/UserInfo';
 
@@ -15,9 +16,13 @@ export function Header(props) {
         {links.map((link, index) => {
           return (
             <div className="nav-item" key={index}>
-              <a className="my-header-links-wrapper-link btn btn-light" href={link.url}>
+              <NavLink
+                className="my-header-links-wrapper-link btn btn-light"
+                activeclassname="active"
+                to={link.path}
+              >
                 {link.name}
-              </a>
+              </NavLink>
             </div>
           );
         })}

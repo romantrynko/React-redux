@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { PostCard } from '../post-card/PostCard';
 import PostsMenuList from './PostsMenuList';
 
@@ -15,7 +15,9 @@ export default class PostPreview extends Component {
     this.setState({ selectedPost: postId });
   };
 
+  
   render() {
+   
     const { selectedPost } = this.state;
     const { posts } = this.props;
 
@@ -39,3 +41,42 @@ export default class PostPreview extends Component {
     );
   }
 }
+
+// export default function PostPreview({posts}) {
+//   // state = {
+//   //   selectedPost: this.props.posts ? this.props.posts[0].id : null
+//   // };
+
+//   const [selectedPost, setSelectedPost] = useState(
+//     posts ? posts[0].id : null
+//   );
+
+
+  
+//   function onPostSelect(postId) {
+//     setSelectedPost({ selectedPost: postId });
+//   }
+
+
+
+
+//   // const { selectedPost } = this.state;
+
+
+//   const post = posts.find((item) => item.id === selectedPost);
+//   console.log(post);
+
+//   return (
+//     <div>
+//       <div className={CN}>
+//         <div className={`${CN}-list`}>
+//           <PostsMenuList posts={posts} onPostClick={onPostSelect} />
+//         </div>
+//         <div className={`${CN}-content`}>
+//           <PostCard post={post} className={`${CN}-card`} withCommentsLoading />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+

@@ -9,14 +9,14 @@ import Panel from '../panel/Panel';
 import PostPreview from '../post-preview/PostPreview';
 import uniqid from 'uniqid';
 
-import './App.scss';
+import './HomePage.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import AddPostForm from '../post-form/AddPostForm';
 import UsersList from '../users-list/UsersList';
 import AddUserForm from '../user-form/AddUserForm';
 
 const sortingOptions = ['Sort By Default', 'Sort By Author'];
-export default class App extends Component {
+export default class HomePage extends Component {
   state = {
     posts: [...postsList],
     selectedOption: sortingOptions[0],
@@ -82,10 +82,8 @@ export default class App extends Component {
 
     return (
       <div className="App">
-        <Header />
-        <Footer />
 
-        <Panel label={'Users-list'} isOpenByDefault>
+        <Panel label={'Users-list'} >
           <AddUserForm addUser={this.onAddUser} />
           <UsersList users={users} />
         </Panel>
