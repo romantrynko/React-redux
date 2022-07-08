@@ -20,7 +20,7 @@ const UserPage = ({ users }) => {
   };
 
   return (
-    <div>
+    <div className='d-flex flex-column align-items-center'>
       {!!user && <UserCard user={user} routeUser/>}
       <button
         className="btn btn-outline-dark m-2"

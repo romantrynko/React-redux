@@ -7,8 +7,6 @@ export function UserCard({ user, routeUser }) {
   const location = useLocation();
   const { pathname } = location;
 
-  console.log(pathname);
-
   if (!user) return null;
 
   const {

@@ -36,7 +36,12 @@ export default function App() {
           path="/post-preview"
           element={<PostPreview posts={postsList} />}
         />
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
 }
+
+export const NotFoundPage = () => {
+  return <div>Page not found!</div>;
+};

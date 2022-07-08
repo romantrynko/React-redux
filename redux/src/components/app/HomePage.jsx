@@ -82,10 +82,9 @@ export default class HomePage extends Component {
 
     return (
       <div className="App">
-
-        <Panel label={'Users-list'} >
+        <Panel label={'Users-list'}>
           <AddUserForm addUser={this.onAddUser} />
-          <UsersList users={users} />
+          <UsersList users={users} routeUser />
         </Panel>
 
         <Panel label={'Posts'}>
@@ -152,7 +151,7 @@ export default class HomePage extends Component {
           <div className="posts-container d-flex">
             {usersList &&
               usersList.map((user, key) => {
-                return <UserCard user={user} key={key} />;
+                return <UserCard user={user} key={key} routeUser />;
               })}
           </div>
         </Panel>
