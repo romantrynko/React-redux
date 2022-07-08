@@ -1,10 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { createContext, PureComponent, useContext } from 'react';
 import './UserCard.scss';
 import { Link } from 'react-router-dom';
 import { useLocation, useParams, withRouter } from 'react-router';
+import { UserContext } from '../../App';
 
 export function UserCard({ user, routeUser }) {
+  // const userr = useContext(UserContext);
+  // console.log(userr);
+  
   const location = useLocation();
+
   const { pathname } = location;
 
   if (!user) return null;
@@ -16,6 +21,7 @@ export function UserCard({ user, routeUser }) {
     address,
     _links: { avatar } = {}
   } = user;
+
   return (
     <div className="my-user-card card">
       {/*<img src={`${avatar.href}?dummy=${Math.random() * 1000}`} alt="user avatar" className="may-user-card-avatar rounded-circle"/>*/}

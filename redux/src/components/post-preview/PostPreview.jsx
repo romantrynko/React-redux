@@ -34,6 +34,7 @@ export default class PostPreview extends Component {
               post={post}
               className={`${CN}-card`}
               withCommentsLoading
+              routePost
             />
           </div>
         </div>
