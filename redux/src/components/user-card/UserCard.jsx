@@ -1,47 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { PureComponent } from 'react';
 import './UserCard.scss';
 import { Link } from 'react-router-dom';
-import withRouter, { useLocation, useNavigate } from 'react-router';
+import { useLocation, useParams, withRouter } from 'react-router';
 
-export const UserCard = ({ user }) => {
-  const navigate = useNavigate();
-  const { state } = useLocation();
+export function UserCard({ user, routeUser }) {
+  const location = useLocation();
+  const { pathname } = location;
 
-  useEffect(() => {
-    if (state === null || state === undefined) {
-      navigate('/users');
-      
-      console.log(state);
-      console.log(navigate);
-    }
-  }, []);
+  console.log(pathname);
 
   if (!user) return null;
 
-  const { first_name, last_name, email, address = '', _links = '' } = user;
-
+  const {
+    first_name,
+    last_name,
+    email,
+    address,
+    _links: { avatar } = {}
+  } = user;
   return (
-    <div className="my-user-card card m-2 p-2">
-      {/* <img
-        className="my-user-card-avatar rounded-circle"
-        src={_links.avatar.href}
-        alt="avatar"
-      /> */}
+    <div className="my-user-card card">
+      {/*<img src={`${avatar.href}?dummy=${Math.random() * 1000}`} alt="user avatar" className="may-user-card-avatar rounded-circle"/>*/}
+
       <div className="card-body">
-        <h5 className="card-title">
+        <h4 className="card-title">
           {first_name} {last_name}
-        </h5>
-        <hr />
-      </div>
-      <div className="card-text">
-        <div>{email}</div>
-        <hr />
-        <div>{address}</div>
+        </h4>
+        <div className="card-text">
+          <div>{email}</div>
+          <div>{address}</div>
+        </div>
       </div>
 
-      <Link className="btn btn-outline-info m-3" to={`/${user.id}`}>
-        Show details
-      </Link>
+      {!routeUser && (
+        <Link className="btn btn-outline-dark" to={`${pathname}/${user.id}`}>
+          Show details
+        </Link>
+      )}
     </div>
   );
-};
+}
+
+// export const UserCard = withRouter(UserCardComponent);
