@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import AddPostForm from '../post-form/AddPostForm';
 import UsersList from '../users-list/UsersList';
 import AddUserForm from '../user-form/AddUserForm';
-import { dec, inc } from '../../actions/counter.action';
+import { dec, inc, reset } from '../../actions/counter.action';
 import { connect } from 'react-redux';
 
 const sortingOptions = ['Sort By Default', 'Sort By Author'];
@@ -101,6 +101,9 @@ class HomePage extends Component {
         </button>
         <button className="btn btn-outline-success m-2" onClick={this.onInc}>
           Inc +
+        </button>
+        <button className="btn btn-light m-2" onClick={this.props.reset}>
+          Reset
         </button>
 
         <Panel label={'Users-list'}>
@@ -194,7 +197,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     increment: () => dispatch(inc()),
-    decrement: () => dispatch(dec())
+    decrement: () => dispatch(dec()),
+    reset: () => dispatch(reset())
   };
 };
 

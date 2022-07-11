@@ -1,4 +1,4 @@
-import { DECREMENT, INCREMENT } from '../action-types/counter.action-type';
+import { DECREMENT, INCREMENT, RESET } from '../action-types/counter.action-type';
 
 export const inc = () => {
   return {
@@ -11,5 +11,12 @@ export const dec = () => {
   return {
     type: DECREMENT,
     payload: 5
+  };
+};
+
+export const reset = () => {
+  return {
+    type: RESET,
+    payload: null
   };
 };
