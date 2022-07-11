@@ -138,7 +138,7 @@ import { Link } from 'react-router-dom';
 // }
 
 export const PostCard = ({
-  post = { id: null },
+  post,
   withCommentsLoading,
   hasImage = null,
   author = '',
@@ -165,6 +165,7 @@ export const PostCard = ({
 
     if (response.ok) {
       let result = await response.json();
+      console.log(result);
 
       if (Array.isArray(result)) {
         setIsCommentsLoading(true);
@@ -183,6 +184,7 @@ export const PostCard = ({
   useEffect(() => {
     if (post && withCommentsLoading) {
       const { id } = post;
+      console.log(id);
 
       id && getComments(id);
     }

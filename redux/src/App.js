@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './components/app/HomePage';
 import UsersList from './components/users-list/UsersList';
@@ -9,12 +9,26 @@ import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import UserPage from './components/user-page/UserPage';
 import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
-import {PostsList} from './components/posts-list/PostsList';
+import { PostsList } from './components/posts-list/PostsList';
 
 export const UserContext = createContext();
 
 export default function App() {
   const [user, setUser] = useState('Jesse Hall');
+
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async (id) => {
+    let response = await fetch(`https://gorest.co.in/public/v2/posts/`);
+
+    if (response.ok) {
+      let result = await response.json();
+      setPosts(result || []);
+    }
+  };
   return (
     <div>
       <Header />
@@ -33,15 +47,9 @@ export default function App() {
             path="users/:userId"
             element={<UserPage users={usersList} />}
           />
-          <Route path="posts" element={<PostsList posts={postsList} />} />
-          <Route
-            path="posts/:postId"
-            element={<PostDetailsPage />}
-          />
-          <Route
-            path="post-preview"
-            element={<PostPreview posts={postsList} />}
-          />
+          <Route path="posts" element={<PostsList posts={posts} />} />
+          <Route path="posts/:postId" element={<PostDetailsPage />} />
+          <Route path="post-preview" element={<PostPreview posts={posts} />} />
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="*" element={<Navigate to="home" />} />
         </Routes>

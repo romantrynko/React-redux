@@ -17,8 +17,6 @@ export default function PostDetailsPage({ posts, routePost }) {
 
   const { postId } = params;
 
-  console.log(postId);
-
   const loadPost = async () => {
     setIsLoading(true);
 
