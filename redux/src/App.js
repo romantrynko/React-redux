@@ -36,7 +36,7 @@ export default function App() {
           <Route path="posts" element={<PostsList posts={postsList} />} />
           <Route
             path="posts/:postId"
-            element={<PostDetailsPage posts={postsList} />}
+            element={<PostDetailsPage />}
           />
           <Route
             path="post-preview"

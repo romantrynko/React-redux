@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useCallback } from 'react';
 import './PostCard.scss';
 import avatar from '../../assets/react.png';
 import Comments from '../comments/Comments';
@@ -137,7 +137,13 @@ import { Link } from 'react-router-dom';
 //   }
 // }
 
-export const PostCard = (props) => {
+export const PostCard = ({
+  post = { id: null },
+  withCommentsLoading,
+  hasImage = null,
+  author = '',
+  className = ''
+}) => {
   const location = useLocation();
   const { pathname } = location;
 
@@ -148,25 +154,8 @@ export const PostCard = (props) => {
   const [error, setError] = useState('');
   const [commentsSectionExpanded, setCommentsSectionExpanded] = useState(false);
 
-  useEffect(() => {
-    const { post, withCommentsLoading = '' } = props;
 
-    if (post && withCommentsLoading) {
-      const { id } = post;
-
-      id && getComments(id);
-    }
-  });
-
-  // const [prop, setProp] = useState(0);
-
-  // const prevProp = usePrevious(prop);
-
-  // if (prevProp.post.id !== props.post.id && props.withCommentsLoading) {
-  //   getComments(props.post.id);
-  // }
-
-  const getComments = async (id) => {
+  const getComments = useCallback(async (id) => {
     setIsCommentsLoading(true);
     setShowComments(true);
 
@@ -189,18 +178,29 @@ export const PostCard = (props) => {
       setError(response.status);
       setCommentsSectionExpanded(!commentsSectionExpanded);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (post && withCommentsLoading) {
+      const { id } = post;
+
+      id && getComments(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (withCommentsLoading) {
+      getComments(post.id);
+    }
+  }, [withCommentsLoading, post.id, getComments]);
+
+   
 
   const onToggleComments = () => {
     setShowComments(!showComments);
   };
 
-  const {
-    post: { title, body, id },
-    hasImage = null,
-    author = '',
-    className = ''
-  } = props;
+  const { title, body, id } = post;
 
   let randomNum = Math.random() * 1000;
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
