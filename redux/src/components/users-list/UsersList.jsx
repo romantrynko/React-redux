@@ -12,7 +12,6 @@ export default function UsersList({ routeUser }) {
 
   useEffect(() => {
     setPage(queryString.parse(location.search));
-    console.log(page);
   }, []);
 
   return (

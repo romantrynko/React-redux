@@ -165,7 +165,6 @@ export const PostCard = ({
 
     if (response.ok) {
       let result = await response.json();
-      console.log(result);
 
       if (Array.isArray(result)) {
         setIsCommentsLoading(true);
@@ -184,7 +183,6 @@ export const PostCard = ({
   useEffect(() => {
     if (post && withCommentsLoading) {
       const { id } = post;
-      console.log(id);
 
       id && getComments(id);
     }
@@ -197,7 +195,6 @@ export const PostCard = ({
   }, [withCommentsLoading, post.id, getComments]);
 
    
-
   const onToggleComments = () => {
     setShowComments(!showComments);
   };
@@ -206,6 +203,7 @@ export const PostCard = ({
 
   let randomNum = Math.random() * 1000;
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
+
 
   return (
     <div className={`my-post-card card ${className}`}>

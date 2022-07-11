@@ -10,6 +10,8 @@ import { Footer } from './components/footer/Footer';
 import UserPage from './components/user-page/UserPage';
 import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
 import { PostsList } from './components/posts-list/PostsList';
+import { useFetching } from './hooks/useFetching';
+import PostService from './API/PostService';
 
 export const UserContext = createContext();
 
@@ -17,18 +19,25 @@ export default function App() {
   const [user, setUser] = useState('Jesse Hall');
 
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-    loadPosts();
+    fetchPosts();
   }, []);
 
-  const loadPosts = async (id) => {
-    let response = await fetch(`https://gorest.co.in/public/v2/posts/`);
+  // const loadPosts = async (id) => {
+  //   let response = await fetch(`https://gorest.co.in/public/v2/posts/`);
 
-    if (response.ok) {
-      let result = await response.json();
-      setPosts(result || []);
-    }
-  };
+  //   if (response.ok) {
+  //     let result = await response.json();
+  //     setPosts(result || []);
+  //   }
+  // };
+
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const response = await PostService.getAll(10, 1);
+    setPosts([...posts, ...response.data]);
+  });
+
   return (
     <div>
       <Header />
