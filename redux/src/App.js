@@ -12,6 +12,8 @@ import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
 import { PostsList } from './components/posts-list/PostsList';
 import { useFetching } from './hooks/useFetching';
 import PostService from './API/PostService';
+import { Provider } from 'react-redux';
+import { store } from './store/index';
 
 export const UserContext = createContext();
 
@@ -31,10 +33,10 @@ export default function App() {
 
   return (
     <div>
-      <Header />
-      <Footer />
+      <Provider store={store}>
+        <Header />
+        <Footer />
 
-      <UserContext.Provider value={user}>
         <Routes>
           {/* {links.map((link) => {
                 return (
@@ -53,7 +55,7 @@ export default function App() {
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="*" element={<Navigate to="home" />} />
         </Routes>
-      </UserContext.Provider>
+      </Provider>
     </div>
   );
 }

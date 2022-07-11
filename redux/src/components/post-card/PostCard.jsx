@@ -141,7 +141,7 @@ export const PostCard = ({
   post,
   withCommentsLoading = false,
   hasImage = null,
-  author = '',
+  author = null,
   className = '',
   postDetails = false
 }) => {
@@ -193,9 +193,7 @@ export const PostCard = ({
   }, [
     withCommentsLoading,
     post.id,
-    getComments,
-    setIsCommentsLoading,
-    setCommentsLoaded
+    getComments
   ]);
 
   const onToggleComments = () => {
@@ -206,8 +204,6 @@ export const PostCard = ({
 
   let randomNum = Math.random() * 1000;
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
-
-  console.log(comments);
 
   return (
     <div className={`my-post-card card ${className}`}>
@@ -225,7 +221,7 @@ export const PostCard = ({
         <h4 className="card-title title">{title}</h4>
         <div className="card-text body">{body}</div>
       </div>
-      <blockquote className="blockquote-footer">{author}</blockquote>
+      {author && <blockquote className="blockquote-footer">{author}</blockquote>}
 
       {!!error && <div>{error}</div>}
       <br />
@@ -258,7 +254,7 @@ export const PostCard = ({
         !comments.length && (
           <div className="m-2">No comments for this post yet</div>
         )}
-      {showComments && isCommentsLoading && !commentsLoaded && (
+      {!comments.length && showComments && isCommentsLoading && !commentsLoaded && (
         <div>Loading comments...</div>
       )}
 

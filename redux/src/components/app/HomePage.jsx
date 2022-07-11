@@ -14,9 +14,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import AddPostForm from '../post-form/AddPostForm';
 import UsersList from '../users-list/UsersList';
 import AddUserForm from '../user-form/AddUserForm';
+import { dec, inc } from '../../actions/counter.action';
+import { connect } from 'react-redux';
 
 const sortingOptions = ['Sort By Default', 'Sort By Author'];
-export default class HomePage extends Component {
+class HomePage extends Component {
   state = {
     posts: [...postsList],
     selectedOption: sortingOptions[0],
@@ -77,11 +79,30 @@ export default class HomePage extends Component {
     });
   };
 
+  onInc = () => {
+    const { increment } = this.props;
+    increment();
+  };
+
+  onDec = () => {
+    const { decrement } = this.props;
+    decrement();
+  };
+
   render() {
+    const { count } = this.props;
     const { posts, selectedOption, users } = this.state;
 
     return (
       <div className="App">
+        <div className="d-flex justify-content-center">Count: {count}</div>
+        <button className="btn btn-outline-danger m-2" onClick={this.onDec}>
+          Dec -
+        </button>
+        <button className="btn btn-outline-success m-2" onClick={this.onInc}>
+          Inc +
+        </button>
+
         <Panel label={'Users-list'}>
           <AddUserForm addUser={this.onAddUser} />
           <UsersList users={users} routeUser />
@@ -128,7 +149,6 @@ export default class HomePage extends Component {
                   const author = user
                     ? `${user.first_name} ${user.last_name}`
                     : '';
-
                   const comments = allComments.filter(
                     (item) => item.post_id === post.id
                   );
@@ -165,3 +185,17 @@ export default class HomePage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { count } = state;
+  return { count };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increment: () => dispatch(inc()),
+    decrement: () => dispatch(dec())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

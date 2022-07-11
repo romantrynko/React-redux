@@ -21,7 +21,7 @@ export default function PostPreview({ posts }) {
           <PostsMenuList posts={posts} onPostClick={onPostSelect} />
         </div>
         <div className={`${CN}-content`}>
-          <PostCard post={post} className={`${CN}-card`} />
+          <PostCard post={post} className={`${CN}-card`}/>
         </div>
       </div>
     </div>

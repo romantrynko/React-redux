@@ -45,9 +45,7 @@ export default class AddPostForm extends Component {
     const { onAddPost } = this.props;
     const { title, body, user_id } = this.state;
 
-    const newPost = { title, body, user_id };
-
-    onAddPost && onAddPost(newPost);
+    onAddPost && onAddPost({ title, body, user_id });
 
     this.onReset();
   };
