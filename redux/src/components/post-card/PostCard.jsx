@@ -139,10 +139,11 @@ import { Link } from 'react-router-dom';
 
 export const PostCard = ({
   post,
-  withCommentsLoading,
+  withCommentsLoading = false,
   hasImage = null,
   author = '',
-  className = ''
+  className = '',
+  postDetails = false
 }) => {
   const location = useLocation();
   const { pathname } = location;
@@ -154,11 +155,8 @@ export const PostCard = ({
   const [error, setError] = useState('');
   const [commentsSectionExpanded, setCommentsSectionExpanded] = useState(false);
 
-
   const getComments = useCallback(async (id) => {
     setIsCommentsLoading(true);
-    setShowComments(true);
-
     let response = await fetch(
       `https://gorest.co.in/public/v2/posts/${id}/comments`
     );
@@ -192,9 +190,14 @@ export const PostCard = ({
     if (withCommentsLoading) {
       getComments(post.id);
     }
-  }, [withCommentsLoading, post.id, getComments]);
+  }, [
+    withCommentsLoading,
+    post.id,
+    getComments,
+    setIsCommentsLoading,
+    setCommentsLoaded
+  ]);
 
-   
   const onToggleComments = () => {
     setShowComments(!showComments);
   };
@@ -204,6 +207,7 @@ export const PostCard = ({
   let randomNum = Math.random() * 1000;
   const _kittyURL = `https://cataas.com/cat/says/hello%20world!?${randomNum}`;
 
+  console.log(comments);
 
   return (
     <div className={`my-post-card card ${className}`}>
@@ -223,37 +227,43 @@ export const PostCard = ({
       </div>
       <blockquote className="blockquote-footer">{author}</blockquote>
 
-      {/* <div>
-          <Comments comments={comments} />
-        </div> */}
-
-      <label
-        className="btn btn-outline-secondary m-2"
-        onClick={onToggleComments}
-      >
-        {showComments ? 'Hide comments' : 'Show comments'}
-      </label>
-
       {!!error && <div>{error}</div>}
       <br />
 
-      <Link className="btn btn-outline-dark" to={`${pathname}/${id}`}>
-        Show details
-      </Link>
+      {postDetails && (
+        <Link
+          className="btn btn-outline-dark w-50 m-auto mb-2"
+          to={`${pathname}/${id}`}
+        >
+          Show details
+        </Link>
+      )}
 
-      {showComments && <label>Comments:</label>}
+      {withCommentsLoading && (
+        <label
+          className="btn btn-outline-secondary m-auto mb-2 w-50"
+          onClick={onToggleComments}
+        >
+          {showComments ? 'Hide comments' : 'Show comments'}
+        </label>
+      )}
 
-      {showComments && isCommentsLoading && <div>Loading comments...</div>}
+      {withCommentsLoading && showComments && (
+        <label className="text-center">Comments:</label>
+      )}
 
       {showComments &&
-        !isCommentsLoading &&
-        commentsLoaded &&
+        // !isCommentsLoading &&
+        // commentsLoaded &&
         !comments.length && (
           <div className="m-2">No comments for this post yet</div>
         )}
+      {showComments && isCommentsLoading && !commentsLoaded && (
+        <div>Loading comments...</div>
+      )}
 
       {showComments &&
-        !isCommentsLoading &&
+        isCommentsLoading &&
         commentsLoaded &&
         !!comments.length &&
         comments.map((comment) => (

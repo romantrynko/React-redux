@@ -7,16 +7,14 @@ export default function Comments({ comment }) {
   const { name, email, body } = comment;
 
   return (
-    <div className="my-comment">
-      return (
+    <div className="my-comment m-2">
       <div>
-        <b>{name}</b>
+        <b>Name: {name}</b>
         <br />
-        <i>{email}</i>
+        <i>Email: {email}</i>
         <hr />
         <i>{body}</i>
       </div>
-      );
     </div>
   );
 }

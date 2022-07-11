@@ -24,17 +24,8 @@ export default function App() {
     fetchPosts();
   }, []);
 
-  // const loadPosts = async (id) => {
-  //   let response = await fetch(`https://gorest.co.in/public/v2/posts/`);
-
-  //   if (response.ok) {
-  //     let result = await response.json();
-  //     setPosts(result || []);
-  //   }
-  // };
-
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    const response = await PostService.getAll(10, 1);
+    const response = await PostService.getAll();
     setPosts([...posts, ...response.data]);
   });
 

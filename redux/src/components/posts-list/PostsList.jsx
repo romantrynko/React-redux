@@ -34,7 +34,14 @@ export const PostsList = () => {
         <div>Loading posts...</div>
       ) : (
         posts.map((post) => {
-          return <PostCard post={post} key={post.id} />;
+          return (
+            <PostCard
+              post={post}
+              key={post.id}
+              postDetails
+              withCommentsLoading
+            />
+          );
         })
       )}
     </div>
