@@ -6,12 +6,15 @@
 .todo-cards {
   display: flex;
   flex-direction: row;
+  justify-content:baseline;
   margin: 10px;
   flex-wrap: wrap;
 }
 .todo-card {
+  width: 180px;
+justify-content: space-between;
   &-body {
-    width: 150px;
+    
     color: aliceblue;
     background-color: gray;
   }
