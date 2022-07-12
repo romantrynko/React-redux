@@ -19,7 +19,7 @@ function TodoPage({ todos }) {
   const dispatch = useDispatch();
 
   const add = (todo) => dispatch(addTodo(todo));
-  const remove = (todoId) => dispatch(deleteTodo(todoId));
+  const remove = (todo) => dispatch(deleteTodo(todo));
   const edit = () => dispatch(editTodo());
 
   //   const { todos } = props;
@@ -46,7 +46,6 @@ function TodoPage({ todos }) {
   };
 
   const onUserSelect = (name) => {
-    console.log(name);
     setUser(name);
   };
 
@@ -70,8 +69,10 @@ function TodoPage({ todos }) {
     setUser('Select user');
   };
 
-  const onRemoveTodo = (todoId) => {
-    remove(todoId);
+  const onRemoveTodo = (todo) => {
+    return () => {
+      remove && remove(todo);
+    };
   };
 
   return (
@@ -106,21 +107,23 @@ function TodoPage({ todos }) {
           />
         </label>
 
-        <button
-          type="button"
-          className="btn btn-outline-success w-50 m-auto mt-2"
-          onClick={onAddTodo}
-        >
-          Add
-        </button>
+        {user !== 'Select user' && title && body && (
+          <button
+            type="button"
+            className="btn btn-outline-success w-50 m-auto mt-2"
+            onClick={onAddTodo}
+          >
+            Add
+          </button>
+        )}
       </div>
 
       <div className="todo-cards">
         {todos.map((todo, index) => {
-          return <TodoCard todo={todo} key={index} />;
+          return <TodoCard todo={todo} key={index} removeTodo={onRemoveTodo(todo)} />;
         })}
-          </div>
-          <div style={{height: '100px'}}></div>
+      </div>
+      <div style={{ height: '100px' }}></div>
     </div>
   );
 }

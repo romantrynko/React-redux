@@ -38,10 +38,12 @@ export function todoReducer(state = todoDefaultState, action) {
       const { todos } = state;
 
       const index = todos.findIndex((item) => item.id === id);
+      const arrayCopy = [...todos];
+      arrayCopy.splice(index, 1);
 
       if (index > -1) {
         return {
-          todos: [...todos].splice(index, 1)
+          todos: arrayCopy
         };
       }
       return state;
