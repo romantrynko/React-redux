@@ -15,18 +15,18 @@ export class Dropdown extends Component {
     const { onSelect } = this.props;
 
     const value = event.target.getAttribute('data-value');
-
-    onSelect(value);
+    console.log('onOptionSelect', value);
+    onSelect && onSelect(value);
 
     this.setState({ isOpen: false });
   };
 
   render() {
-    const { options = [], selectedOption } = this.props;
+    const { options, selectedOption } = this.props;
     const { isOpen } = this.state;
 
     return (
-      <div className="btn btn-outline-secondary">
+      <div className="btn btn-outline-secondary ">
         <div onClick={this.toggle} className="dropdown-toggle">
           {selectedOption}
         </div>

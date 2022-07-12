@@ -190,7 +190,9 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { count } = state;
+  const {
+    counterReducer: { count }
+  } = state;
   return { count };
 };
 

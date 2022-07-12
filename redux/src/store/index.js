@@ -1,9 +1,9 @@
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { counterReducer } from '../reducers/count.reducer';
+import {  rootReducer } from '../reducers/reducer';
 
 export const store = createStore(
-  counterReducer,
+  rootReducer,
   composeWithDevTools()
   // applyMiddleware(...middleware)
   // other store enhancers if any
