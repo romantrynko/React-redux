@@ -6,8 +6,10 @@ import { useFetching } from '../../hooks/useFetching';
 import uniqid from 'uniqid';
 import { connect, useDispatch } from 'react-redux';
 import { addTodo, deleteTodo, editTodo } from '../../actions/todo.action';
+import './TodoPage.scss';
+import TodoCard from './todo-card/TodoCard';
 
-function TodoPage() {
+function TodoPage({ todos }) {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState('Select user');
   const [title, setTitle] = useState('');
@@ -15,9 +17,12 @@ function TodoPage() {
   const [doneStatus, setDoneStatus] = useState(false);
 
   const dispatch = useDispatch();
+
   const add = (todo) => dispatch(addTodo(todo));
   const remove = (todoId) => dispatch(deleteTodo(todoId));
   const edit = () => dispatch(editTodo());
+
+  //   const { todos } = props;
 
   useEffect(() => {
     getUsers();
@@ -70,38 +75,52 @@ function TodoPage() {
   };
 
   return (
-    <div className="form-group m-auto w-75 d-flex flex-column p-2">
-      <input
-        className="form-control mb-2"
-        type="text"
-        onChange={onTitleChange}
-        placeholder='Enter "to do" name'
-      />
-      <textarea
-        className="form-control mb-2"
-        value={body}
-        onChange={onBodyChange}
-        placeholder='Enter "to do"'
-      />
-
-      <Dropdown options={users} selectedOption={user} onSelect={onUserSelect} />
-      <label className="m-auto">
-        Done
+    <div>
+      <div className="todo-container form-group w-75 d-flex flex-column p-2 align-items-center">
         <input
-          className="m-2"
-          type="checkbox"
-          onChange={onStatusChange}
-          checked={doneStatus}
+          className="form-control mb-2"
+          type="text"
+          value={title}
+          onChange={onTitleChange}
+          placeholder='Enter "to do" name'
         />
-      </label>
+        <textarea
+          className="form-control mb-2"
+          value={body}
+          onChange={onBodyChange}
+          placeholder='Enter "to do"'
+        />
 
-      <button
-        type="button"
-        className="btn btn-outline-success w-50 m-auto mt-2"
-        onClick={onAddTodo}
-      >
-        Add
-      </button>
+        <Dropdown
+          options={users}
+          selectedOption={user}
+          onSelect={onUserSelect}
+        />
+        <label className="m-auto mt-2">
+          Done
+          <input
+            className="m-2"
+            type="checkbox"
+            onChange={onStatusChange}
+            checked={doneStatus}
+          />
+        </label>
+
+        <button
+          type="button"
+          className="btn btn-outline-success w-50 m-auto mt-2"
+          onClick={onAddTodo}
+        >
+          Add
+        </button>
+      </div>
+
+      <div className="todo-cards">
+        {todos.map((todo, index) => {
+          return <TodoCard todo={todo} key={index} />;
+        })}
+          </div>
+          <div style={{height: '100px'}}></div>
     </div>
   );
 }
