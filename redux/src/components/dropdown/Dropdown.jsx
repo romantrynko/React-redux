@@ -15,7 +15,6 @@ export class Dropdown extends Component {
     const { onSelect } = this.props;
 
     const value = event.target.getAttribute('data-value');
-    console.log(value);
 
     onSelect(value);
 

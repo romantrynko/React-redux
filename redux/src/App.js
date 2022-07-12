@@ -11,6 +11,7 @@ import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
 import { PostsList } from './components/posts-list/PostsList';
 import { useFetching } from './hooks/useFetching';
 import PostService from './API/PostService';
+import TodoPage from './components/todo-page/TodoPage';
 
 export const UserContext = createContext();
 
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="posts" element={<PostsList posts={posts} />} />
         <Route path="posts/:postId" element={<PostDetailsPage />} />
         <Route path="post-preview" element={<PostPreview posts={posts} />} />
+        <Route path="todo-page" element={<TodoPage/>} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>

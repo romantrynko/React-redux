@@ -16,22 +16,27 @@ export const user = {
 export const links = [
   {
     name: 'Home',
-    path: '/home',
+    path: '/home'
     // element: <HomePage />
   },
   {
     name: 'Users',
-    path: '/users',
+    path: '/users'
     // element: <UsersList />
   },
   {
     name: 'Posts',
-    path: '/posts',
+    path: '/posts'
     // element: <PostsMenuList />
   },
   {
     name: 'Post Preview',
-    path: '/post-preview',
+    path: '/post-preview'
+    // element: <PostPreview />
+  },
+  {
+    name: 'Todo page',
+    path: '/todo-page'
     // element: <PostPreview />
   }
 ];
