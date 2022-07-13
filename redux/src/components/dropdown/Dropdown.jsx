@@ -26,13 +26,13 @@ export class Dropdown extends Component {
     const { isOpen } = this.state;
 
     return (
-      <div className="btn btn-outline-secondary w-50">
+      <div className="dropdown-closed">
         <div onClick={this.toggle} className="dropdown-toggle">
           {selectedOption}
         </div>
 
         {!!isOpen && (
-          <div className="may-drop-down-options-wrapper dropdown-menu show">
+          <div className="my-drop-down-options-wrapper dropdown-menu show">
             {options.map((option) => {
               return (
                 <div

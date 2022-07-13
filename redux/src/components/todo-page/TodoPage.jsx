@@ -69,6 +69,7 @@ function TodoPage({ todos }) {
     setBody('');
     setDoneStatus(false);
     setUser('Select user');
+    setId('');
   };
 
   const onRemoveTodo = (todo) => {
@@ -116,40 +117,50 @@ function TodoPage({ todos }) {
           placeholder='Enter "to do"'
         />
 
-        <Dropdown
-          options={users}
-          selectedOption={user}
-          onSelect={onUserSelect}
-        />
-        <label className="m-auto mt-2">
-          Done
-          <input
-            className="m-2"
-            type="checkbox"
-            onChange={onStatusChange}
-            checked={doneStatus}
-          />
-        </label>
+        <div className="d-flex flex-row justify-content-center w-100">
+          <div className="d-flex flex-column w-50">
+            <Dropdown
+              options={users}
+              selectedOption={user}
+              onSelect={onUserSelect}
+            />
+            <label className="check-done-label m-auto mt-2">
+              Done
+              <input
+                className="check-done m-2"
+                type="checkbox"
+                onChange={onStatusChange}
+                checked={doneStatus}
+              />
+            </label>
+          </div>
 
-        {!editMode ? (
-          <button
-            type="button"
-            className="btn btn-outline-success w-25 m-auto mt-2"
-            onClick={onAddTodo}
-            disabled={user !== 'Select user' && title && body ? false : true}
-          >
-            Add todo
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="btn btn-outline-info w-25 m-auto mt-2"
-            onClick={onUpdateTodo}
-            disabled={user !== 'Select user' && title && body ? false : true}
-          >
-            Update todo
-          </button>
-        )}
+          <div className="d-flex align-center justify-content-center w-50">
+            {!editMode ? (
+              <button
+                type="button"
+                className="button btn btn-outline-success"
+                onClick={onAddTodo}
+                disabled={
+                  user !== 'Select user' && title && body ? false : true
+                }
+              >
+                Add
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="button btn btn-outline-info"
+                onClick={onUpdateTodo}
+                disabled={
+                  user !== 'Select user' && title && body ? false : true
+                }
+              >
+                Update todo
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="todo-cards">

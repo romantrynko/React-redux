@@ -1,7 +1,5 @@
 .todo-container {
-  border: 1px solid lightgray;
   margin: 10px auto;
-  box-shadow: 0px 16px 19px 1px rgba(0, 0, 0, 0.18);
   padding: 5px 5px 25px 5px;
 }
 
@@ -15,32 +13,54 @@
 .todo-card {
   width: 180px;
   min-height: 260px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   box-shadow: 0px 16px 19px 1px rgba(0, 0, 0, 0.23);
-  background: aliceblue;
+  background: rgb(254, 255, 240);
+  opacity: 90%;
 
   &-body {
-    color: aliceblue;
-    background-color: gray;
+   
+    background-color: white;
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 5px;
+    height: 100px;
   }
 }
 
-.delete-btn {
-  border-radius: 30px;
-  width: 35px;
-  height: 35px;
-  padding-top: 3px;
-  padding-left: 8px;
+.button {
   border: none;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 10px 1px rgb(0 0 0 / 12%);
+  width: 85px;
+  height: 85px;
+}
+
+.delete-btn {
   font-size: 20px;
-  display: contents;
+  cursor: pointer;
 }
 
 .edit-btn {
-  height: 15px;
-  width: 15px;
-  padding: 7px;
-  border-radius: 30px;
-  border: none;
-  display: contents;
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.check-done {
+  cursor: pointer;
+
+  &-label {
+    box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.13);
+    display: flex;
+    align-items: center;
+    width: 256px;
+    justify-content: center;
+    border-radius: 25px;
+    height: 35px;
+  }
 }
