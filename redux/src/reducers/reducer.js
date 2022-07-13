@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { usersList } from '../constants/index';
 
 const defaultState = {
   count: 0,
@@ -86,4 +87,25 @@ export function todoReducer(state = todoDefaultState, action) {
   }
 }
 
-export const rootReducer = combineReducers({ counterReducer, todoReducer });
+const usersState = { users: usersList };
+
+export const userReducer = (state = usersState, action) => {
+  switch (action.type) {
+    case 'ADD_USER': {
+      const newUser = action.payload;
+      const { users } = state;
+      console.log(users);
+      return {
+        users: [...users, newUser]
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export const rootReducer = combineReducers({
+  counterReducer,
+  todoReducer,
+  userReducer
+});

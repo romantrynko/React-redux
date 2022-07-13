@@ -119,14 +119,12 @@ function TodoPage({ todos }) {
         />
 
         <div className="d-flex flex-row justify-content-center w-100">
-          <div className="d-flex flex-column w-50">
+          <div className="d-flex flex-column justify-content-center jus w-50">
             <Dropdown
               options={users}
               selectedOption={user}
               onSelect={onUserSelect}
             />
-
-           
           </div>
 
           <div className="d-flex align-center justify-content-center w-50">

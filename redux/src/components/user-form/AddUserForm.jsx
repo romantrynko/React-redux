@@ -1,6 +1,8 @@
 import React, { Component, createRef } from 'react';
+import { addUser } from '../../actions/users.action';
+import { connect } from 'react-redux';
 
-export default class AddUserForm extends Component {
+class AddUserForm extends Component {
   firstNameRef = createRef();
   lastNameRef = createRef();
   emailRef = createRef();
@@ -125,3 +127,17 @@ export default class AddUserForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const users = state.userReducer;
+
+  return users;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUser: (newUser) => dispatch(addUser(newUser))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddUserForm);

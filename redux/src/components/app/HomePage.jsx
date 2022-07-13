@@ -21,8 +21,8 @@ const sortingOptions = ['Sort By Default', 'Sort By Author'];
 class HomePage extends Component {
   state = {
     posts: [...postsList],
-    selectedOption: sortingOptions[0],
-    users: usersList
+    selectedOption: sortingOptions[0]
+    // users: usersList
   };
 
   onSort = (selectedOption) => {
@@ -71,14 +71,6 @@ class HomePage extends Component {
     });
   };
 
-  onAddUser = (newUser) => {
-    this.setState((prevState, props) => {
-      return {
-        users: [{ id: uniqid(), ...newUser }, ...prevState.users]
-      };
-    });
-  };
-
   onInc = () => {
     const { increment } = this.props;
     increment();
@@ -90,8 +82,8 @@ class HomePage extends Component {
   };
 
   render() {
-    const { count } = this.props;
-    const { posts, selectedOption, users } = this.state;
+    const { count, users } = this.props;
+    const { posts, selectedOption } = this.state;
 
     return (
       <div className="App">
@@ -107,7 +99,7 @@ class HomePage extends Component {
         </button>
 
         <Panel label={'Users-list'}>
-          <AddUserForm addUser={this.onAddUser} />
+          <AddUserForm />
           <UsersList users={users} routeUser />
         </Panel>
 
@@ -191,9 +183,11 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
   const {
-    counterReducer: { count }
+    counterReducer: { count },
+    userReducer: { users }
   } = state;
-  return { count };
+
+  return { count, users };
 };
 
 const mapDispatchToProps = (dispatch) => {

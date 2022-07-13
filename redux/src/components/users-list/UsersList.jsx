@@ -1,11 +1,9 @@
 import React, { Component, useEffect, useState } from 'react';
 import { UserCard } from '../user-card/UserCard';
-import { usersList } from '../../constants/index';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 
-export default function UsersList({ routeUser }) {
-  const [users, setUsers] = useState(usersList);
+export default function UsersList({ routeUser, users }) {
   const [page, setPage] = useState(1);
 
   const location = useLocation();
@@ -15,7 +13,7 @@ export default function UsersList({ routeUser }) {
   }, []);
 
   return (
-    <div className="d-flex flex-column">
+    <div className="users d-flex flex-column">
       <hr />
       <div className="d-flex flex-row">
         {users &&
