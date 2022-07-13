@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 import './Dropdown.scss';
 
@@ -6,6 +6,15 @@ export class Dropdown extends Component {
   state = {
     isOpen: false
   };
+  dropDownRef = createRef();
+
+  componentDidMount() {
+    document.addEventListener('click', this.onClose);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.onClose);
+  }
 
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
@@ -16,9 +25,16 @@ export class Dropdown extends Component {
 
     const value = event.target.getAttribute('data-value');
     console.log('onOptionSelect', value);
+
     onSelect && onSelect(value);
 
     this.setState({ isOpen: false });
+  };
+
+  onClose = (event) => {
+    if (this.dropDownRef && !this.dropDownRef.current.contains(event.target)) {
+      this.setState({ isOpen: false });
+    }
   };
 
   render() {
@@ -26,7 +42,7 @@ export class Dropdown extends Component {
     const { isOpen } = this.state;
 
     return (
-      <div className="dropdown-closed">
+      <div className="dropdown-closed" ref={this.dropDownRef}>
         <div onClick={this.toggle} className="dropdown-toggle">
           {selectedOption}
         </div>

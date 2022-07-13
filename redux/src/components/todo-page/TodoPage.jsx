@@ -7,7 +7,8 @@ import uniqid from 'uniqid';
 import { connect, useDispatch } from 'react-redux';
 import { addTodo, deleteTodo, updateTodo } from '../../actions/todo.action';
 import './TodoPage.scss';
-import TodoCard from './todo-card/TodoCard';
+import TodoCard from '../todo-card/TodoCard';
+import Checkbox from '../checkbox/Checkbox';
 
 function TodoPage({ todos }) {
   const [users, setUsers] = useState([]);
@@ -23,8 +24,6 @@ function TodoPage({ todos }) {
   const add = (todo) => dispatch(addTodo(todo));
   const remove = (todo) => dispatch(deleteTodo(todo));
   const update = (todo) => dispatch(updateTodo(todo));
-
-  //   const { todos } = props;
 
   useEffect(() => {
     getUsers();
@@ -100,6 +99,8 @@ function TodoPage({ todos }) {
     resetForm();
   };
 
+
+
   return (
     <div>
       <div className="todo-container form-group w-50 d-flex flex-column align-items-center">
@@ -124,15 +125,8 @@ function TodoPage({ todos }) {
               selectedOption={user}
               onSelect={onUserSelect}
             />
-            <label className="check-done-label m-auto mt-2">
-              Done
-              <input
-                className="check-done m-2"
-                type="checkbox"
-                onChange={onStatusChange}
-                checked={doneStatus}
-              />
-            </label>
+
+            <Checkbox onStatusChange={onStatusChange} doneStatus={doneStatus} />
           </div>
 
           <div className="d-flex align-center justify-content-center w-50">

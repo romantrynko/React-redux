@@ -65,6 +65,25 @@ export function todoReducer(state = todoDefaultState, action) {
       }
       return state;
     }
+
+    case 'STATUS_CHANGE': {
+      const {
+        checked,
+        todo: { id }
+      } = action.payload;
+      const { todos } = state;
+      const arrayCopy = [...todos];
+
+      const index = todos.findIndex((item) => item.id === id);
+
+      if (index > -1) {
+        arrayCopy[index].doneStatus = checked;
+        return {
+          todos: arrayCopy
+        };
+      }
+      return state;
+    }
     default:
       return state;
   }
