@@ -48,8 +48,22 @@ export function todoReducer(state = todoDefaultState, action) {
       }
       return state;
     }
-    case 'EDIT_TODO': {
-      return {};
+    case 'UPDATE_TODO': {
+      const { id } = action.payload;
+      const { todos } = state;
+      const arrayCopy = [...todos];
+
+      const todo = action.payload;
+
+      const index = todos.findIndex((item) => item.id === id);
+
+      if (index > -1) {
+        arrayCopy[index] = todo;
+        return {
+          todos: arrayCopy
+        };
+      }
+      return state;
     }
     default:
       return state;

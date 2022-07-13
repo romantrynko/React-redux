@@ -1,7 +1,7 @@
 import {
   ADD_TODO,
   DELETE_TODO,
-  EDIT_TODO
+  UPDATE_TODO
 } from '../action-types/todo.action-type';
 export const addTodo = (newTodo) => {
   return {
@@ -17,9 +17,9 @@ export const deleteTodo = (todo) => {
   };
 };
 
-export const editTodo = () => {
+export const updateTodo = (todo) => {
   return {
-    type: EDIT_TODO,
-    payload: null
+    type: UPDATE_TODO,
+    payload: todo
   };
 };

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useFetching } from '../../hooks/useFetching';
 import uniqid from 'uniqid';
 import { connect, useDispatch } from 'react-redux';
-import { addTodo, deleteTodo, editTodo } from '../../actions/todo.action';
+import { addTodo, deleteTodo, updateTodo } from '../../actions/todo.action';
 import './TodoPage.scss';
 import TodoCard from './todo-card/TodoCard';
 
@@ -15,12 +15,14 @@ function TodoPage({ todos }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [doneStatus, setDoneStatus] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [id, setId] = useState('');
 
   const dispatch = useDispatch();
 
   const add = (todo) => dispatch(addTodo(todo));
   const remove = (todo) => dispatch(deleteTodo(todo));
-  const edit = () => dispatch(editTodo());
+  const update = (todo) => dispatch(updateTodo(todo));
 
   //   const { todos } = props;
 
@@ -75,9 +77,31 @@ function TodoPage({ todos }) {
     };
   };
 
+  const editTodo = (todo) => {
+    const { id, user, title, body, doneStatus } = todo;
+    return () => {
+      setEditMode(true);
+      setId(id);
+      setUser(user);
+      setTitle(title);
+      setBody(body);
+      setDoneStatus(doneStatus);
+    };
+  };
+
+  const onUpdateTodo = () => {
+    const editedTodo = { id, user, title, body, doneStatus };
+
+    update && update(editedTodo);
+
+    setEditMode(false);
+
+    resetForm();
+  };
+
   return (
     <div>
-      <div className="todo-container form-group w-75 d-flex flex-column p-2 align-items-center">
+      <div className="todo-container form-group w-50 d-flex flex-column align-items-center">
         <input
           className="form-control mb-2"
           type="text"
@@ -107,20 +131,37 @@ function TodoPage({ todos }) {
           />
         </label>
 
-        {user !== 'Select user' && title && body && (
+        {!editMode ? (
           <button
             type="button"
-            className="btn btn-outline-success w-50 m-auto mt-2"
+            className="btn btn-outline-success w-25 m-auto mt-2"
             onClick={onAddTodo}
+            disabled={user !== 'Select user' && title && body ? false : true}
           >
-            Add
+            Add todo
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-outline-info w-25 m-auto mt-2"
+            onClick={onUpdateTodo}
+            disabled={user !== 'Select user' && title && body ? false : true}
+          >
+            Update todo
           </button>
         )}
       </div>
 
       <div className="todo-cards">
         {todos.map((todo, index) => {
-          return <TodoCard todo={todo} key={index} removeTodo={onRemoveTodo(todo)} />;
+          return (
+            <TodoCard
+              todo={todo}
+              key={index}
+              removeTodo={onRemoveTodo(todo)}
+              editTodo={editTodo(todo)}
+            />
+          );
         })}
       </div>
       <div style={{ height: '100px' }}></div>

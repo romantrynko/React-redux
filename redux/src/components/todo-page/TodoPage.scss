@@ -1,21 +1,46 @@
 .todo-container {
   border: 1px solid lightgray;
   margin: 10px auto;
+  box-shadow: 0px 16px 19px 1px rgba(0, 0, 0, 0.18);
+  padding: 5px 5px 25px 5px;
 }
 
 .todo-cards {
   display: flex;
   flex-direction: row;
-  justify-content:baseline;
+  justify-content: center;
   margin: 10px;
   flex-wrap: wrap;
 }
 .todo-card {
   width: 180px;
-justify-content: space-between;
+  min-height: 260px;
+  justify-content: space-between;
+  box-shadow: 0px 16px 19px 1px rgba(0, 0, 0, 0.23);
+  background: aliceblue;
+
   &-body {
-    
     color: aliceblue;
     background-color: gray;
   }
+}
+
+.delete-btn {
+  border-radius: 30px;
+  width: 35px;
+  height: 35px;
+  padding-top: 3px;
+  padding-left: 8px;
+  border: none;
+  font-size: 20px;
+  display: contents;
+}
+
+.edit-btn {
+  height: 15px;
+  width: 15px;
+  padding: 7px;
+  border-radius: 30px;
+  border: none;
+  display: contents;
 }
