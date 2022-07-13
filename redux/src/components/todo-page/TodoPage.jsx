@@ -126,7 +126,7 @@ function TodoPage({ todos }) {
               onSelect={onUserSelect}
             />
 
-            <Checkbox onStatusChange={onStatusChange} doneStatus={doneStatus} />
+           
           </div>
 
           <div className="d-flex align-center justify-content-center w-50">

@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import Checkbox from '../checkbox/Checkbox';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { statusChange } from '../../actions/todo.action';
 
-export default function TodoCard({ todo, removeTodo, editTodo }) {
-  const [doneStatus, setDoneStatus] = useState();
-
+function TodoCard({ todo, removeTodo, editTodo, todos }) {
   const dispatch = useDispatch();
-
   const done = (object) => dispatch(statusChange(object));
 
-  const doneStatusChange = (event) => {
-    const { checked } = event.target;
-    done({checked, todo});
+  const index = todos.find((item) => item.id === todo.id);
+
+  const doneStatusChange = () => {
+    done(todo);
   };
 
   const onRemoveTodo = () => {
@@ -44,9 +42,21 @@ export default function TodoCard({ todo, removeTodo, editTodo }) {
         <h6>Title: "{todo.title}"</h6>
         <p>{todo.body}</p>
         <hr />
-        <i className="text-center">{todo.doneStatus ? 'done' : 'not done'}</i>
-        <Checkbox onStatusChange={doneStatusChange} doneStatus={doneStatus} />
+        <i className="text-center">{todo.doneStatus ? 'Done' : 'Not done'}</i>
+        <Checkbox
+          onStatusChange={doneStatusChange}
+          doneStatus={index.doneStatus}
+        />
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  const {
+    todoReducer: { todos }
+  } = state;
+  return { todos };
+};
+
+export default connect(mapStateToProps)(TodoCard);

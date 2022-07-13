@@ -67,17 +67,14 @@ export function todoReducer(state = todoDefaultState, action) {
     }
 
     case 'STATUS_CHANGE': {
-      const {
-        checked,
-        todo: { id }
-      } = action.payload;
+      const { id } = action.payload;
       const { todos } = state;
       const arrayCopy = [...todos];
 
       const index = todos.findIndex((item) => item.id === id);
 
       if (index > -1) {
-        arrayCopy[index].doneStatus = checked;
+        arrayCopy[index].doneStatus = !arrayCopy[index].doneStatus;
         return {
           todos: arrayCopy
         };
