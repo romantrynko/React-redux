@@ -8,7 +8,7 @@ import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import UserPage from './components/user-page/UserPage';
 import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
-import { PostsList } from './components/posts-list/PostsList';
+import PostsList from './components/posts-list/PostsList';
 import { useFetching } from './hooks/useFetching';
 import PostService from './API/PostService';
 import TodoPage from './components/todo-page/TodoPage';
@@ -40,11 +40,11 @@ export default function App() {
               })} */}
         <Route path="home" element={<HomePage />} />
         <Route path="users" element={<UsersList />} />
-        <Route path="users/:userId" element={<UserPage users={usersList} />} />
+        <Route path="users/:userId" element={<UserPage />} />
         <Route path="posts" element={<PostsList posts={posts} />} />
         <Route path="posts/:postId" element={<PostDetailsPage />} />
         <Route path="post-preview" element={<PostPreview posts={posts} />} />
-        <Route path="todo-page" element={<TodoPage/>} />
+        <Route path="todo-page" element={<TodoPage />} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="home" />} />
       </Routes>

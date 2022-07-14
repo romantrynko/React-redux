@@ -138,7 +138,7 @@ class HomePage extends Component {
               {posts &&
                 posts.map((post, key) => {
                   const odd = key % 2 !== 0;
-                  const user = usersList.find(
+                  const user = users.find(
                     (item) => item.id === post.user_id
                   );
                   const author = user
@@ -164,8 +164,8 @@ class HomePage extends Component {
 
         <Panel label={'Users'}>
           <div className="posts-container d-flex">
-            {usersList &&
-              usersList.map((user, key) => {
+            {users &&
+              users.map((user, key) => {
                 return <UserCard user={user} key={key} routeUser />;
               })}
           </div>

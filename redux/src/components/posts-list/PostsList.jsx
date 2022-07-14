@@ -1,32 +1,18 @@
-import React, { Component, useEffect, useState } from 'react';
-import { accessToken, usersList } from '../../constants';
+import React, { useEffect, useState } from 'react';
 import { PostCard } from '../post-card/PostCard';
+import { connect, useDispatch } from 'react-redux';
+import { getPosts } from '../../actions/posts.action';
 
-export const PostsList = () => {
-  const [posts, setPosts] = useState([]);
+const PostsList = ({ posts }) => {
+  const dispatch = useDispatch();
+  // const loadPosts = () => dispatch(getPosts());
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    loadPosts();
+    dispatch(getPosts());
   }, []);
-
-  const loadPosts = async (id) => {
-    setIsLoading(true);
-
-    let response = await fetch(`https://gorest.co.in/public/v2/posts/`);
-
-    if (response.ok) {
-      let result = await response.json();
-
-      if (Array.isArray(result)) {
-        setPosts(result || []);
-        setIsLoading(false);
-      }
-    } else {
-      setError(response.status);
-    }
-  };
 
   return (
     <div className="d-flex flex-wrap">
@@ -47,3 +33,12 @@ export const PostsList = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  const {
+    postsReducer: { posts }
+  } = state;
+  return { posts };
+};
+
+export default connect(mapStateToProps)(PostsList);

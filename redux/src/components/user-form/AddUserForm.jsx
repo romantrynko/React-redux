@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { addUser } from '../../actions/users.action';
 import { connect } from 'react-redux';
+import uniqid from 'uniqid';
 
 class AddUserForm extends Component {
   firstNameRef = createRef();
@@ -13,7 +14,7 @@ class AddUserForm extends Component {
     const { addUser } = this.props;
 
     const first_name = this.firstNameRef.current.value;
-    const last_name = this.firstNameRef.current.value;
+    const last_name = this.lastNameRef.current.value;
     const email = this.emailRef.current.value;
     const address = this.addressRef.current.value;
 
@@ -26,6 +27,7 @@ class AddUserForm extends Component {
     }
 
     const newUser = {
+      id: uniqid(),
       first_name,
       last_name,
       email,
@@ -73,7 +75,7 @@ class AddUserForm extends Component {
 
         <div className="form-group m-1">
           <input
-            ref={this.secondNameRef}
+            ref={this.lastNameRef}
             type="text"
             className="form-control"
             id="formGroupExampleInput2"

@@ -2,6 +2,8 @@ import React from 'react';
 import { usersList } from '../../constants';
 import { UserCard } from '../user-card/UserCard';
 import { useParams, useHistory, useNavigate } from 'react-router';
+import { connect } from 'react-redux';
+import { userReducer } from '../../reducers/reducer';
 
 const UserPage = ({ users }) => {
   const params = useParams();
@@ -20,8 +22,8 @@ const UserPage = ({ users }) => {
   };
 
   return (
-    <div className='d-flex flex-column align-items-center'>
-      {!!user && <UserCard user={user} routeUser/>}
+    <div className="d-flex flex-column align-items-center">
+      {!!user && <UserCard user={user} routeUser />}
       <button
         className="btn btn-outline-dark m-2"
         type="button"
@@ -40,4 +42,9 @@ const UserPage = ({ users }) => {
   );
 };
 
-export default UserPage;
+const mapStateToProps = (state) => {
+  const { userReducer: users } = state;
+  return users
+};
+
+export default connect(mapStateToProps)(UserPage);

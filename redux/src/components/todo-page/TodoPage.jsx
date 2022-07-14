@@ -50,10 +50,6 @@ function TodoPage({ todos }) {
     setUser(name);
   };
 
-  const onStatusChange = (e) => {
-    setDoneStatus(e.target.checked);
-  };
-
   const onAddTodo = () => {
     const newTodo = { id: uniqid(), user, title, body, doneStatus };
 

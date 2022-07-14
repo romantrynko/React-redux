@@ -94,9 +94,26 @@ export const userReducer = (state = usersState, action) => {
     case 'ADD_USER': {
       const newUser = action.payload;
       const { users } = state;
-      console.log(users);
+
       return {
         users: [...users, newUser]
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const postsState = { posts: [] };
+
+export const postsReducer = (state = postsState, action) => {
+  switch (action.type) {
+    case 'LOAD_POSTS': {
+      const posts = action.payload;
+      console.log(posts);
+      return {
+        ...state,
+        posts
       };
     }
     default:
@@ -107,5 +124,6 @@ export const userReducer = (state = usersState, action) => {
 export const rootReducer = combineReducers({
   counterReducer,
   todoReducer,
-  userReducer
+  userReducer,
+  postsReducer
 });
