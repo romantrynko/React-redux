@@ -5,7 +5,8 @@ import {
   COMMENTS_LOADED,
   SHOW_COMMENTS,
   ERROR,
-  COMMENTS_SECTION_EXPANDED
+  COMMENTS_SECTION_EXPANDED,
+  ON_TOGGLE_COMMENTS
 } from '../action-types/comments.action-type copy';
 
 export const getComments = (postId) => {
@@ -66,6 +67,13 @@ export const setError = (data) => {
 export const setCommentsSectionExpanded = (data) => {
   return {
     type: COMMENTS_SECTION_EXPANDED,
+    payload: data
+  };
+};
+
+export const onToggleComments = (data) => {
+  return {
+    type: ON_TOGGLE_COMMENTS,
     payload: data
   };
 };

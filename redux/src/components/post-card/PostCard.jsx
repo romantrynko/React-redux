@@ -9,7 +9,7 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getComments } from '../../actions/comments.action';
+import { getComments, onToggleComments } from '../../actions/comments.action';
 
 export const PostCard = ({
   post,
@@ -32,6 +32,8 @@ export const PostCard = ({
 
   const location = useLocation();
   const { pathname } = location;
+
+  
 
   // const getComments = useCallback(async (id) => {
   //   setIsCommentsLoading(true);
@@ -122,7 +124,7 @@ export const PostCard = ({
       {withCommentsLoading && (
         <label
           className="btn btn-outline-secondary m-auto mb-2 w-50"
-          onClick={onToggleComments}
+          onClick={() => dispatch(onToggleComments())}
         >
           {showComments ? 'Hide comments' : 'Show comments'}
         </label>

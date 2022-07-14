@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PostCard } from '../post-card/PostCard';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../actions/posts.action';
 
 export const PostsList = () => {
@@ -13,7 +13,7 @@ export const PostsList = () => {
       dispatch(getPosts());
       return;
     }
-  }, [posts]);
+  }, [posts, dispatch]);
 
   return (
     <div className="d-flex flex-wrap">
@@ -35,12 +35,3 @@ export const PostsList = () => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   const {
-//     postsReducer: { posts, isLoading }
-//   } = state;
-
-//   return { posts, isLoading };
-// };
-
-// export default connect(mapStateToProps)(PostsList);

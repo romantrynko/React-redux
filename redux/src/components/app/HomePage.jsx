@@ -6,7 +6,7 @@ import { usersList, postsList, allComments } from '../../constants';
 import { PostCard } from '../post-card/PostCard';
 import { Dropdown } from '../dropdown/Dropdown';
 import Panel from '../panel/Panel';
-import PostPreview from '../post-preview/PostPreview';
+import { PostPreview } from '../post-preview/PostPreview';
 import uniqid from 'uniqid';
 
 import './HomePage.scss';
@@ -138,9 +138,7 @@ class HomePage extends Component {
               {posts &&
                 posts.map((post, key) => {
                   const odd = key % 2 !== 0;
-                  const user = users.find(
-                    (item) => item.id === post.user_id
-                  );
+                  const user = users.find((item) => item.id === post.user_id);
                   const author = user
                     ? `${user.first_name} ${user.last_name}`
                     : '';

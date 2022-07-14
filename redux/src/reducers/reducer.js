@@ -140,7 +140,8 @@ const commentsState = {
   commentsLoaded: false,
   showComments: false,
   error: '',
-  commentsSectionExpanded: false
+  commentsSectionExpanded: false,
+  onToggleComments: false
 };
 
 export const commentsReducer = (state = commentsState, action) => {
@@ -179,6 +180,12 @@ export const commentsReducer = (state = commentsState, action) => {
       return {
         ...state,
         commentsSectionExpanded: action.payload
+      };
+    }
+    case 'onToggleComments': {
+      return {
+        ...state,
+        onToggleComments: !state.onToggleComments
       };
     }
     default:

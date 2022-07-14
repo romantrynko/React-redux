@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './components/app/HomePage';
 import UsersList from './components/users-list/UsersList';
-import PostPreview from './components/post-preview/PostPreview';
+import {PostPreview} from './components/post-preview/PostPreview';
 import { usersList } from './constants/index';
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
@@ -23,7 +23,7 @@ export default function App() {
     if (posts.length === 0) {
       dispatch(getPosts());
     }
-  }, [posts]);
+  }, [posts, dispatch]);
 
   return (
     <div>
@@ -34,9 +34,9 @@ export default function App() {
         <Route path="home" element={<HomePage />} />
         <Route path="users" element={<UsersList />} />
         <Route path="users/:userId" element={<UserPage />} />
-        <Route path="posts" element={<PostsList posts={posts} />} />
+        <Route path="posts" element={<PostsList/>} />
         <Route path="posts/:postId" element={<PostDetailsPage />} />
-        <Route path="post-preview" element={<PostPreview posts={posts} />} />
+        <Route path="post-preview" element={<PostPreview/>} />
         <Route path="todo-page" element={<TodoPage />} />
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="home" />} />
