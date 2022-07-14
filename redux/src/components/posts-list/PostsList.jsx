@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { PostCard } from '../post-card/PostCard';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../actions/posts.action';
 
-const PostsList = ({ posts }) => {
+export const PostsList = () => {
   const dispatch = useDispatch();
-  // const loadPosts = () => dispatch(getPosts());
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { posts, isLoading } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, []);
+    if (posts.length === 0) {
+      dispatch(getPosts());
+      return;
+    }
+  }, [posts]);
 
   return (
     <div className="d-flex flex-wrap">
@@ -34,11 +35,12 @@ const PostsList = ({ posts }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    postsReducer: { posts }
-  } = state;
-  return { posts };
-};
+// const mapStateToProps = (state) => {
+//   const {
+//     postsReducer: { posts, isLoading }
+//   } = state;
 
-export default connect(mapStateToProps)(PostsList);
+//   return { posts, isLoading };
+// };
+
+// export default connect(mapStateToProps)(PostsList);

@@ -104,16 +104,81 @@ export const userReducer = (state = usersState, action) => {
   }
 };
 
-const postsState = { posts: [] };
+const postsState = {
+  posts: [],
+  isLoading: false
+};
 
 export const postsReducer = (state = postsState, action) => {
   switch (action.type) {
     case 'LOAD_POSTS': {
-      const posts = action.payload;
-      console.log(posts);
       return {
         ...state,
-        posts
+        posts: action.payload
+      };
+    }
+    case 'START_POSTS_LOADING': {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+    case 'STOP_POSTS_LOADING': {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const commentsState = {
+  comments: [],
+  isCommentsLoading: false,
+  commentsLoaded: false,
+  showComments: false,
+  error: '',
+  commentsSectionExpanded: false
+};
+
+export const commentsReducer = (state = commentsState, action) => {
+  switch (action.type) {
+    case 'LOAD_COMMENTS': {
+      return {
+        ...state,
+        comments: action.payload
+      };
+    }
+    case 'IS_COMMENTS_LOADING': {
+      return {
+        ...state,
+        isCommentsLoading: action.payload
+      };
+    }
+    case 'COMMENTS_LOADED': {
+      return {
+        ...state,
+        commentsLoaded: action.payload
+      };
+    }
+    case 'SHOW_COMMENTS': {
+      return {
+        ...state,
+        showComments: action.payload
+      };
+    }
+    case 'ERROR': {
+      return {
+        ...state,
+        error: action.payload
+      };
+    }
+    case 'COMMENTS_SECTION_EXPANDED': {
+      return {
+        ...state,
+        commentsSectionExpanded: action.payload
       };
     }
     default:
@@ -125,5 +190,6 @@ export const rootReducer = combineReducers({
   counterReducer,
   todoReducer,
   userReducer,
-  postsReducer
+  postsReducer,
+  commentsReducer
 });

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './components/app/HomePage';
 import UsersList from './components/users-list/UsersList';
@@ -8,24 +8,22 @@ import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import UserPage from './components/user-page/UserPage';
 import PostDetailsPage from './components/posts-details-page/PostDetailsPage';
-import PostsList from './components/posts-list/PostsList';
-import { useFetching } from './hooks/useFetching';
-import PostService from './API/PostService';
+import { PostsList } from './components/posts-list/PostsList';
 import TodoPage from './components/todo-page/TodoPage';
-
-export const UserContext = createContext();
+import { useSelector, useDispatch } from 'react-redux';
+import { NotFoundPage } from './components/not-found-page/NotFoundPage';
+import { getPosts } from './actions/posts.action';
 
 export default function App() {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+
+  const posts = useSelector((state) => state.postsReducer.posts);
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const [fetchPosts] = useFetching(async () => {
-    const response = await PostService.getAll();
-    setPosts([...posts, ...response.data]);
-  });
+    if (posts.length === 0) {
+      dispatch(getPosts());
+    }
+  }, [posts]);
 
   return (
     <div>
@@ -33,11 +31,6 @@ export default function App() {
       <Footer />
 
       <Routes>
-        {/* {links.map((link) => {
-                return (
-                  <Route key={link.path} path={link.path} element={link.element} />
-                );
-              })} */}
         <Route path="home" element={<HomePage />} />
         <Route path="users" element={<UsersList />} />
         <Route path="users/:userId" element={<UserPage />} />
@@ -51,7 +44,3 @@ export default function App() {
     </div>
   );
 }
-
-export const NotFoundPage = () => {
-  return <div>Page not found!</div>;
-};

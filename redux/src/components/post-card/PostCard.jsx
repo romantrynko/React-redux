@@ -8,6 +8,8 @@ import usePrevious from '../../hooks/usePrevious';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getComments } from '../../actions/comments.action';
 
 export const PostCard = ({
   post,
@@ -17,56 +19,64 @@ export const PostCard = ({
   className = '',
   postDetails = false
 }) => {
+  const dispatch = useDispatch();
+  const {
+    comments,
+    isCommentsLoading,
+    commentsLoaded,
+    error,
+    commentsSectionExpanded
+  } = useSelector((state) => state.commentsReducer);
+
+  const [showComments, setShowComments] = useState(false);
+
   const location = useLocation();
   const { pathname } = location;
 
-  const [comments, setComments] = useState([]);
-  const [isCommentsLoading, setIsCommentsLoading] = useState(false);
-  const [commentsLoaded, setCommentsLoaded] = useState(false);
-  const [showComments, setShowComments] = useState(false);
-  const [error, setError] = useState('');
-  const [commentsSectionExpanded, setCommentsSectionExpanded] = useState(false);
+  // const getComments = useCallback(async (id) => {
+  //   setIsCommentsLoading(true);
+  //   let response = await axios.get(
+  //     `https://gorest.co.in/public/v2/posts/${id}/comments`
+  //   );
 
-  const getComments = useCallback(async (id) => {
-    setIsCommentsLoading(true);
-    let response = await axios.get(
-      `https://gorest.co.in/public/v2/posts/${id}/comments`
-    );
+  //   if (response) {
+  //     let result = await response.data;
 
-    if (response.ok) {
-      let result = await response.json();
+  //     if (Array.isArray(result)) {
+  //       setIsCommentsLoading(true);
+  //       setCommentsLoaded(true);
+  //       setError('');
+  //       setComments(result || []);
+  //     }
+  //   } else {
+  //     setIsCommentsLoading(false);
+  //     setCommentsLoaded(false);
+  //     setError(response.status);
+  //     setCommentsSectionExpanded(!commentsSectionExpanded);
+  //   }
+  // }, []);
 
-      if (Array.isArray(result)) {
-        setIsCommentsLoading(true);
-        setCommentsLoaded(true);
-        setError('');
-        setComments(result || []);
-      }
-    } else {
-      setIsCommentsLoading(false);
-      setCommentsLoaded(false);
-      setError(response.status);
-      setCommentsSectionExpanded(!commentsSectionExpanded);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (comments.length === 0) {
+  //     dispatch(getComments(post.id));
+  //     return;
+  //   }
+  // }, [comments]);
 
-  useEffect(() => {
-    if (post && withCommentsLoading) {
-      const { id } = post;
+  // useEffect(() => {
+  //   if (post) {
+  //     const { id } = post;
 
-      id && getComments(id);
-    }
-  }, []);
+  //     dispatch(getComments(id));
+  //     return;
+  //   }
+  // }, [comments, dispatch, post, withCommentsLoading]);
 
-  useEffect(() => {
-    if (withCommentsLoading) {
-      getComments(post.id);
-    }
-  }, [
-    withCommentsLoading,
-    post.id,
-    getComments
-  ]);
+  // useEffect(() => {
+  //   if (withCommentsLoading) {
+  //     dispatch(getComments(post.id));
+  //   }
+  // }, [withCommentsLoading, post.id]);
 
   const onToggleComments = () => {
     setShowComments(!showComments);
@@ -93,7 +103,9 @@ export const PostCard = ({
         <h4 className="card-title title">{title}</h4>
         <div className="card-text body">{body}</div>
       </div>
-      {author && <blockquote className="blockquote-footer">{author}</blockquote>}
+      {author && (
+        <blockquote className="blockquote-footer">{author}</blockquote>
+      )}
 
       {!!error && <div>{error}</div>}
       <br />
@@ -126,9 +138,10 @@ export const PostCard = ({
         !comments.length && (
           <div className="m-2">No comments for this post yet</div>
         )}
-      {!comments.length && showComments && isCommentsLoading && !commentsLoaded && (
-        <div>Loading comments...</div>
-      )}
+      {!comments.length &&
+        showComments &&
+        isCommentsLoading &&
+        !commentsLoaded && <div>Loading comments...</div>}
 
       {showComments &&
         isCommentsLoading &&
