@@ -1,0 +1,28 @@
+.my-panel {
+  margin: 20px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-chevron {
+      cursor: pointer;
+      transition-duration: 400ms;
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
+
+      &.up {
+        transform: rotateX(180deg);
+        transition-duration: 400ms;
+      }
+    }
+  }
+  &-header:hover {
+    background: white;
+    transition-duration: 300ms;
+  }
+}
