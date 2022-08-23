@@ -20,6 +20,7 @@ export const PostCard = ({
   postDetails = false
 }) => {
   const dispatch = useDispatch();
+  
   const {
     comments,
     isCommentsLoading,

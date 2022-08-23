@@ -149,7 +149,7 @@ export const commentsReducer = (state = commentsState, action) => {
     case 'LOAD_COMMENTS': {
       return {
         ...state,
-        comments: action.payload
+        comments: action.payload.comments
       };
     }
     case 'IS_COMMENTS_LOADING': {

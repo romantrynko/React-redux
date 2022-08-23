@@ -36,10 +36,10 @@ export const getComments = (postId) => {
   };
 };
 
-export const setIsCommentsLoading = (data) => {
+export const setIsCommentsLoading = (isLoading) => {
   return {
     type: IS_COMMENTS_LOADING,
-    payload: data
+    payload:  isLoading 
   };
 };
 

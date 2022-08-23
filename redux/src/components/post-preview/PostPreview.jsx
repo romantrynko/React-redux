@@ -14,14 +14,20 @@ export const PostPreview = () => {
   const { posts, isLoading } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
-    if (!posts) {
+    if (!posts.length) {
       dispatch(getPosts());
       return;
     }
+    return;
   }, [posts, dispatch]);
+  const [selectedPost, setSelectedPost] = useState();
 
-  const [selectedPost, setSelectedPost] = useState(posts ? posts[2].id : null);
-
+  useEffect(() => {
+    if (posts.length) {
+      setSelectedPost(posts[0].id)
+    }
+  }, [posts]);
+  
   const onPostSelect = (postId) => {
     setSelectedPost(postId);
   };
@@ -29,13 +35,13 @@ export const PostPreview = () => {
   const post = posts.find((item) => item.id === selectedPost);
 
   if (!post) {
-    return <div>No posts yet</div>;
+    return <div>Loading posts...</div>;
   }
   return (
     <div>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div>Loading posts...</div>
-      ) : (
+      ) : ( */}
         <div className={CN}>
           <div className={`${CN}-list`}>
             <PostsMenuList posts={posts} onPostClick={onPostSelect} />
@@ -44,7 +50,7 @@ export const PostPreview = () => {
             <PostCard post={post} className={`${CN}-card`} />
           </div>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };
