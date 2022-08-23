@@ -1,4 +1,4 @@
-import { legacy_createStore as createStore, applyMiddleware } from 'redux';
+import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer } from '../reducers/reducer';
@@ -27,9 +27,7 @@ export const trackPostsLoading =
     next(action);
   };
 
-export const store = createStore(
+export const store = configureStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk, logger, trackPostsLoading))
-
-  // other store enhancers if any
 );
